@@ -26,21 +26,21 @@ class Clientes extends REST_Controller {
 			$this->response(null, 400);
 		}
 
-		$pasajero = $this->pasajeros_model->get($id);
+		$cliente = $this->clientes_model->get($id);
 
-		if(!is_null($pasajero)){
-			$this->response(array('response' => $pasajero), 200);
+		if(!is_null($cliente)){
+			$this->response(array('response' => $cliente), 200);
 		} else {
-			$this->response(array('error' => 'Pasajero no encontrado'), 404);
+			$this->response(array('error' => 'Cliente no encontrado'), 404);
 		}
 	}
 
 	public function index_post(){
-		if (!$this->post('pasajero')) {
+		if (!$this->post('cliente')) {
 			$this->response(null, 400);
 		}
 
-		$id = $this->pasajeros_model->save($this->post('pasajero'));
+		$id = $this->clientes_model->save($this->post('cliente'));
 		if (!is_null($id)) {
 			$this->response(array('response' => $id), 200);
 		} else {
@@ -49,14 +49,14 @@ class Clientes extends REST_Controller {
 	}
 
 	public function index_put(){
-		if(!$this->put('pasajero') || $id){
+		if(!$this->put('cliente') || $id){
 			$this->response(null, 400);
 		}
 
-		$update = $this->pasajeros_model->update($id, $this->put('pasajero'));
+		$update = $this->clientes_model->update($id, $this->put('cliente'));
 
 		if(!is_null($update)){
-			$this->response(array('response' => 'Pasajero editado correctamente.'), 200);
+			$this->response(array('response' => 'Cliente editado correctamente.'), 200);
 		} else {
 			$this->response(array('error' => 'Algo ha fallado en el servidor. Acción no procesada'), 400);
 		}
@@ -67,10 +67,10 @@ class Clientes extends REST_Controller {
 			$this->response(null, 400);
 		}
 		
-		$delete = $this->pasajeros_model->delete($id);
+		$delete = $this->clientes_model->delete($id);
 
 		if(!is_null($delete)){
-			$this->response(array('response' => 'Pasajero eliminado correctamente.'), 200);
+			$this->response(array('response' => 'Cliente eliminado correctamente.'), 200);
 		} else {
 			$this->response(array('error' => 'Algo ha fallado en el servidor. Acción no procesada'), 400);
 		}
