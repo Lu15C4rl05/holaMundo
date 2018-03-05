@@ -15,9 +15,11 @@ class Pasajeros extends REST_Controller {
 
 		if (!is_null($pasajeros)) {
 			$this->response(array('response' => $pasajeros), 200);
+			$this->load->view('insertar');
 		} else {
 			$this->response(array('error' => 'No existen pasajeros en la base de datos'), 404);
 		}
+		//$this->load->view('insertar');
 	}
 
 	public function find_get($id){
@@ -35,7 +37,7 @@ class Pasajeros extends REST_Controller {
 	}
 
 	public function index_post(){
-		if ($this->post('pasajero')) {
+		if (!$this->post('pasajero')) {
 			$this->response(null, 400);
 		}
 

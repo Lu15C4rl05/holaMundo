@@ -3,24 +3,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 require_once APPPATH . 'libraries/REST_Controller.php';
 
-class Ciudad extends REST_Controller {
+class Clientes extends REST_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		$this->load->model('ciudad_model');
+		$this->load->model('clientes_model');
 	}
 
 	public function index_get(){
-		$ciudad = $this->ciudad_model->get();
+		$clientes = $this->clientes_model->get();
 
-		if (!is_null($ciudad)) {
-			$this->response(array('response' => $ciudad), 200);
+		if (!is_null($clientes)) {
+			$this->response(array('response' => $clientes), 200);
 		} else {
-			$this->response(array('error' => 'No existen pasajeros en la base de datos'), 404);
+			$this->response(array('error' => 'No existen clientes en la base de datos'), 404);
 		}
+		//$this->load->view('insertar');
 	}
-
-
 
 	public function find_get($id){
 		if(!$id){
@@ -37,7 +36,7 @@ class Ciudad extends REST_Controller {
 	}
 
 	public function index_post(){
-		if ($this->post('pasajero')) {
+		if (!$this->post('pasajero')) {
 			$this->response(null, 400);
 		}
 

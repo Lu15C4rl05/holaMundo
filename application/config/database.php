@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '192.168.0.101',
+	'hostname' => 'localhost',
 	'username' => 'root',
-	'password' => 'ROOT',
-	'database' => 'appboletos',
+	'password' => 'root',
+	'database' => 'appboletos1',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

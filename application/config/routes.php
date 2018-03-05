@@ -49,16 +49,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples: my-controller/index -> my_controller/index
 |   my-controller/my-method -> my_controller/my_method
 */
-$route['default_controller'] = 'horario';
+$route['default_controller'] = 'boletos';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;
 
-//Routes para horarios del WSAppFlota
-$route['horario']['get'] = 'horario';
-$route['horario/(:num)']['get'] = 'horario/find/$1';
-$route['horario']['post'] = 'horario/index';
-$route['horario/(:num)']['put'] = 'horario/index/$1';
-$route['horario/(:num)']['delete'] = 'horario/index/$1';
+//Routes para pasajeros del WSAppFlota
+$route['pasajeros']['get'] = 'pasajeros';
+$route['pasajeros/(:num)']['get'] = 'pasajeros/find/$1';
+$route['pasajeros']['post'] = 'pasajeros/index';
+$route['pasajeros/(:num)']['put'] = 'pasajeros/index/$1';
+$route['pasajeros/(:num)']['delete'] = 'pasajeros/index/$1';
+
+//Routes para clientes del WSAppFlota
+$route['clientes']['get'] = 'clientes';
+$route['clientes/(:num)']['get'] = 'clientes/find/$1';
+$route['clientes']['post'] = 'clientes/index';
+$route['clientes/(:num)']['put'] = 'clientes/index/$1';
+$route['clientes/(:num)']['delete'] = 'clientes/index/$1';
+
+//Routes para boletos del WSAppFlota
+$route['boletos']['get'] = 'boletos';
+$route['boletos/(:num)']['get'] = 'boletos/find/$1';
+$route['boletos']['post'] = 'boletos/index';
+$route['boletos/(:num)']['put'] = 'boletos/index/$1';
+$route['boletos/(:num)']['delete'] = 'boletos/index/$1';
 
 /*
 | -------------------------------------------------------------------------
