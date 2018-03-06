@@ -71,7 +71,8 @@ $route['clientes/(:num)']['delete'] = 'clientes/index/$1';
 $route['boletos']['get'] = 'boletos';
 $route['boletos/(:num)']['get'] = 'boletos/find/$1';
 $route['boletos']['post'] = 'boletos/index';
-$route['boletos/(:num)']['put'] = 'boletos/index/$1';
+$route['boletos']['post'] = 'boletos/index2';
+//$route['boletos/(:num)']['put'] = 'boletos/index/$1';
 $route['boletos/(:num)']['delete'] = 'boletos/index/$1';
 
 //Routes para rutas del WSAppFlota

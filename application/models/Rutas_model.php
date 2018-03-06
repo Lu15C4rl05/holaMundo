@@ -13,7 +13,7 @@ class Rutas_model extends CI_Model{
 			return null;
 		}
 
-		$query = $this->db->query("select 	ru.ID_RUTA, CONCAT(cii.NOMBRE_CIUDAD,'-',cio.NOMBRE_CIUDAD) AS RUTA,CONCAT(convert(char(8),ho.HORA_SALIDA,108),' - ',
+		$query = $this->db->query("select ru.ID_RUTA, CONCAT(cii.NOMBRE_CIUDAD,'-',cio.NOMBRE_CIUDAD) AS RUTA,CONCAT(convert(char(8),ho.HORA_SALIDA,108),' - ',
 			convert(char(8),ho.HORA_LLEGADA,108)) AS HORARIO
 				from tbl_ruta ru
 				inner join tbl_ciudad cii on ru.ID_CIUDAD_INICIO= cii.ID_CIUDAD
@@ -35,7 +35,7 @@ class Rutas_model extends CI_Model{
 		return false;
 	}
 
-	public function update($id, $ruta){
+	public function updat($id, $ruta){
 		$this->db->set($this->setRuta($ruta))->where('ID_RUTA', $id)->update('tbl_ruta');
 
 		if($this->db->affected_rows() === 1){

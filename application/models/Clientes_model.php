@@ -30,7 +30,7 @@ class Clientes_model extends CI_Model{
 		return false;
 	}
 
-	public function update($id, $pasajero){
+	public function updat($id, $pasajero){
 		$this->db->set($this->setPasajero($pasajero))->where('codigo_pasaj', $id)->update('tbl_pasajeros');
 
 		if($this->db->affected_rows() === 1){
