@@ -13,7 +13,15 @@ class Boletos_model extends CI_Model{
 			return null;
 		}
 
-		$query = $this->db->query("select * from tbl_boleto");
+		$query = $this->db->query("
+			SELECT  bol.ID_BOLETO, bus.NUMERO_BUS, CONCAT(cii.NOMBRE_CIUDAD,'-',cio.NOMBRE_CIUDAD) AS RUTA,
+		CONCAT(cli.APELLIDO_CLI,' ',cli.NOMBRE_CLI) as CLIENTE
+			FROM tbl_boleto bol
+			inner join tbl_bus bus on bol.ID_BUS=bus.ID_BUS
+			inner join tbl_ruta ru on bol.ID_RUTA= ru.ID_RUTA
+			inner join tbl_cliente cli on bol.ID_CLI=cli.ID_CLI
+			inner join tbl_ciudad cii on ru.ID_CIUDAD_INICIO=cii.ID_CIUDAD
+			inner join tbl_ciudad cio on ru.ID_CIUDAD_DESTINO=cio.ID_CIUDAD;");
 
 		if($query->num_rows() > 0){
 			return $query->result_array();

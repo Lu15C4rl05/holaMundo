@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples: my-controller/index -> my_controller/index
 |   my-controller/my-method -> my_controller/my_method
 */
-$route['default_controller'] = 'boletos';
+$route['default_controller'] = 'rutas';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;
 
@@ -73,6 +73,13 @@ $route['boletos/(:num)']['get'] = 'boletos/find/$1';
 $route['boletos']['post'] = 'boletos/index';
 $route['boletos/(:num)']['put'] = 'boletos/index/$1';
 $route['boletos/(:num)']['delete'] = 'boletos/index/$1';
+
+//Routes para rutas del WSAppFlota
+$route['rutas']['get'] = 'rutas';
+$route['rutas/(:num)']['get'] = 'rutas/find/$1';
+$route['rutas']['post'] = 'rutas/index';
+$route['rutas/(:num)']['put'] = 'rutas/index/$1';
+$route['rutas/(:num)']['delete'] = 'rutas/index/$1';
 
 /*
 | -------------------------------------------------------------------------
