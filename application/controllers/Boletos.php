@@ -15,11 +15,9 @@ class Boletos extends REST_Controller {
 
 		if (!is_null($boletos)) {
 			$this->response(array('response' => $boletos), 200);
-			$this->load->view('insertar');
 		} else {
 			$this->response(array('error' => 'No existen boletos en la base de datos'), 404);
 		}
-		//$this->load->view('insertar');
 	}
 
 	public function find_get($id){
@@ -47,29 +45,13 @@ class Boletos extends REST_Controller {
 		$insert = $this->boletos_model->save($Data);
 		if($insert===false){
 				$this->response("Por favor intentelo de nuevo.", REST_Controller::HTTP_BAD_REQUEST);
-			}else{
-			
-				$this->response([
-					'status' => TRUE,
-					'message' => 'Ingreso satisfactorio.'
-				], REST_Controller::HTTP_OK);
-			}
-       
-	}
-
-	/*public function index_put(){
-		if(!$this->put('boleto') || $id){
-			$this->response(null, 400);
-		}
-
-		$update = $this->boletos_model->update($id, $this->put('boleto'));
-
-		if(!is_null($update)){
-			$this->response(array('response' => 'Boleto editado correctamente.'), 200);
 		} else {
-			$this->response(array('error' => 'Algo ha fallado en el servidor. Acción no procesada'), 400);
+			$this->response([
+				'status' => TRUE,
+				'message' => 'Ingreso satisfactorio.'
+			], REST_Controller::HTTP_OK);
 		}
-	}*/
+	}
 
 	public function index2_post() {
 		$id = $this->post('ID_BOLETO');

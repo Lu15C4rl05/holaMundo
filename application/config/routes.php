@@ -53,13 +53,6 @@ $route['default_controller'] = 'rutas';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;
 
-//Routes para pasajeros del WSAppFlota
-$route['pasajeros']['get'] = 'pasajeros';
-$route['pasajeros/(:num)']['get'] = 'pasajeros/find/$1';
-$route['pasajeros']['post'] = 'pasajeros/index';
-$route['pasajeros/(:num)']['put'] = 'pasajeros/index/$1';
-$route['pasajeros/(:num)']['delete'] = 'pasajeros/index/$1';
-
 //Routes para clientes del WSAppFlota
 $route['clientes']['get'] = 'clientes';
 $route['clientes/(:num)']['get'] = 'clientes/find/$1';

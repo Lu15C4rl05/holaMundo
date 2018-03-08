@@ -14,7 +14,7 @@ class Rutas_model extends CI_Model{
 		}
 
 		$query = $this->db->query("select ru.ID_RUTA, CONCAT(cii.NOMBRE_CIUDAD,'-',cio.NOMBRE_CIUDAD) AS RUTA,CONCAT(convert(char(8),ho.HORA_SALIDA,108),' - ',
-			convert(char(8),ho.HORA_LLEGADA,108)) AS HORARIO
+			convert(char(8),ho.HORA_LLEGADA,108)) AS HORARIO, RU.COSTO_RUTA
 				from tbl_ruta ru
 				inner join tbl_ciudad cii on ru.ID_CIUDAD_INICIO= cii.ID_CIUDAD
 				inner join tbl_ciudad cio on ru.ID_CIUDAD_DESTINO=cio.ID_CIUDAD
