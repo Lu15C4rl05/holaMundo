@@ -75,11 +75,11 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'appflota.cgy1yr9fczsp.us-west-2.rds.amazonaws.com',
-	'username' => 'sa',
+	'hostname' => 'dbflota.cgy1yr9fczsp.us-west-2.rds.amazonaws.com',
+	'username' => 'root',
 	'password' => 'Sqlflota00',
 	'database' => 'appboletos',
-	'dbdriver' => 'sqlsrv',
+	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => FALSE,
