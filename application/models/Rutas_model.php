@@ -6,22 +6,14 @@ class Rutas_model extends CI_Model{
 
 	public function get($id=null){
 		if(!is_null($id)){
-			$query = $this->db->select('ID_RUTA,
-	CONCAT(cii.NOMBRE_CIUDAD,"-",cio.NOMBRE_CIUDAD) AS RUTA,
-    CONCAT(date_format(ho.HORA_SALIDA,"%H:%I")," - ",date_format(ho.HORA_LLEGADA,"%H:%I")) AS HORARIO, RU.COSTO_RUTA')->from('tbl_ruta ru')->join('tbl_ciudad cii','ru.ID_CIUDAD_INICIO= cii.ID_CIUDAD')->join('tbl_ciudad cio','ID_CIUDAD_DESTINO=cio.ID_CIUDAD')->join('tbl_horario ho','ru.ID_HORARIO=ho.ID_HORARIO')->where('ru.ID_RUTA', $id)->get();
+			$query = $this->db->query("CALL proc_verRuta('".$id."')");
 			if($query->num_rows() === 1){
 				return $query->row_array();
 			}
 			return null;
 		}
 
-		$query = $this->db->query("select ru.ID_RUTA,
-	CONCAT(cii.NOMBRE_CIUDAD,'-',cio.NOMBRE_CIUDAD) AS RUTA,
-    CONCAT(date_format(ho.HORA_SALIDA,'%H:%I'),' - ',date_format(ho.HORA_LLEGADA,'%H:%I')) AS HORARIO, ru.COSTO_RUTA
-from tbl_ruta ru
-	inner join tbl_ciudad cii on ru.ID_CIUDAD_INICIO= cii.ID_CIUDAD
-	inner join tbl_ciudad cio on ru.ID_CIUDAD_DESTINO=cio.ID_CIUDAD
-	inner join tbl_horario ho on ru.ID_HORARIO=ho.ID_HORARIO;");
+		$query = $this->db->query("select * from vista_rutas");
 
 		if($query->num_rows() > 0){
 			return $query->result_array();
