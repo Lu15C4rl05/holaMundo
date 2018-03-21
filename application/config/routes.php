@@ -75,6 +75,8 @@ $route['rutas']['post'] = 'rutas/index';
 $route['rutas/(:num)']['put'] = 'rutas/index/$1';
 $route['rutas/(:num)']['delete'] = 'rutas/index/$1';
 
+//Routes para ciudades del WSAppFlota
+$route['ciudades']['get'] = 'ciudades';
 /*
 | -------------------------------------------------------------------------
 | Sample REST API Routes
