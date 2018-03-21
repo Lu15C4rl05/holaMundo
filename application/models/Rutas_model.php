@@ -7,10 +7,7 @@ class Rutas_model extends CI_Model{
 	public function get($id=null){
 		if(!is_null($id)){
 			$query = $this->db->query("CALL proc_verRuta('".$id."')");
-			//if($query->num_rows() === 1){
-				return $query->row_array();
-			//}
-			//return null;
+			return $query->result_array();
 		}
 
 		$query = $this->db->query("select * from vista_rutas");
