@@ -13,7 +13,12 @@ class Rutas_model extends CI_Model{
 		$query = $this->db->query("select * from vista_rutas");
 
 		if($query->num_rows() > 0){
-			return $query->result_array();
+			foreach ($query->result_array() as $row) {
+			 	$row['IMAGEN'] = base64_encode($row['IMAGEN']);
+			 	$datos[] = $row;
+			 }
+			 return $datos;
+			 //return $query->result_array();
 		}
 		return null;
 	}
