@@ -34,6 +34,16 @@ class Rutas extends REST_Controller {
 		}
 	}
 
+	public function findimg_get(){
+		$ruta = $this->rutas_model->getimg();
+
+		if(!is_null($ruta)){
+			$this->response(array('response' => $ruta), 200);
+		} else {
+			$this->response(array('error' => 'Ruta no encontrado'), 404);
+		}
+	}
+
 	public function index_post(){
 		$Data = array();
 		$Data['ID_RUTA'] = $this->post('ID_RUTA');

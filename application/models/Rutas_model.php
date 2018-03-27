@@ -18,7 +18,19 @@ class Rutas_model extends CI_Model{
 			 	$datos[] = $row;
 			 }
 			 return $datos;
-			 //return $query->result_array();
+		}
+		return null;
+	}
+
+	public function getimg(){
+		$query = $this->db->query("select * from vista_imagenes_ruta");
+
+		if($query->num_rows() > 0){
+			foreach ($query->result_array() as $row) {
+			 	$row['IMAGEN'] = base64_encode($row['IMAGEN']);
+			 	$datos[] = $row;
+			 }
+			 return $datos;
 		}
 		return null;
 	}
