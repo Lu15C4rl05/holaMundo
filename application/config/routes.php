@@ -58,7 +58,7 @@ $route['clientes']['get'] = 'clientes';
 $route['clientes/(:num)']['get'] = 'clientes/find/$1';
 $route['clientes']['post'] = 'clientes/index';
 $route['clientes/(:num)']['put'] = 'clientes/index/$1';
-$route['clientes/(:num)']['delete'] = 'clientes/index/$1';
+//$route['clientes/(:num)']['delete'] = 'clientes/index/$1';
 
 //Routes para boletos del WSAppFlota
 $route['boletos']['get'] = 'boletos';
@@ -66,15 +66,12 @@ $route['boletos/(:num)']['get'] = 'boletos/find/$1';
 $route['boletos']['post'] = 'boletos/index';
 $route['boletos']['post'] = 'boletos/index2';
 //$route['boletos/(:num)']['put'] = 'boletos/index/$1';
-$route['boletos/(:num)']['delete'] = 'boletos/index/$1';
+//$route['boletos/(:num)']['delete'] = 'boletos/index/$1';
 
 //Routes para rutas del WSAppFlota
 $route['rutas']['get'] = 'rutas';
-$route['rutas/(:any)']['get'] = 'rutas/find/$1';
+$route['rutas/(:any)/(:any)']['get'] = 'rutas/find/$1/$2';
 $route['rutasimg']['get'] = 'rutas/findimg';
-$route['rutas']['post'] = 'rutas/index';
-$route['rutas/(:num)']['put'] = 'rutas/index/$1';
-$route['rutas/(:num)']['delete'] = 'rutas/index/$1';
 
 //Routes para ciudades del WSAppFlota
 $route['ciudades']['get'] = 'ciudades';

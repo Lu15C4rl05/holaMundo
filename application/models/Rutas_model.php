@@ -4,20 +4,16 @@ class Rutas_model extends CI_Model{
 
 	}
 
-	public function get($id=null){
-		if(!is_null($id)){
-			$query = $this->db->query("CALL proc_verRuta('".$id."')");
+	public function get($ciudad_in=null,$ciudad_out=null){
+		if( (!is_null($ciudad_in)) && (!is_null($ciudad_out)) ){
+			$query = $this->db->query("CALL proc_verRuta('".$ciudad_in."','".$ciudad_out."')");
 			return $query->result_array();
 		}
 
 		$query = $this->db->query("select * from vista_rutas");
 
 		if($query->num_rows() > 0){
-			foreach ($query->result_array() as $row) {
-			 	$row['IMAGEN'] = base64_encode($row['IMAGEN']);
-			 	$datos[] = $row;
-			 }
-			 return $datos;
+			 return $query->result_array();
 		}
 		return null;
 	}

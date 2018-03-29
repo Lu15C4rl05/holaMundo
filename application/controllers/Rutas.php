@@ -20,17 +20,17 @@ class Rutas extends REST_Controller {
 		}
 	}
 
-	public function find_get($id){
-		if(!$id){
-			$this->response(null, 400);
+	public function find_get($ciudad_in,$ciudad_out){
+		if(!$ciudad_in || !$ciudad_out){
+			$this->response(array('error' => 'Ruta no encontrada'), 400);
 		}
 
-		$ruta = $this->rutas_model->get($id);
+		$ruta = $this->rutas_model->get($ciudad_in,$ciudad_out);
 
 		if(!is_null($ruta)){
 			$this->response(array('response' => $ruta), 200);
 		} else {
-			$this->response(array('error' => 'Ruta no encontrado'), 404);
+			$this->response(array('error' => 'Ruta no encontrada'), 404);
 		}
 	}
 
