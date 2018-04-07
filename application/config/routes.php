@@ -70,6 +70,7 @@ $route['boletos']['post'] = 'boletos/index2';
 
 //Routes para rutas del WSAppFlota
 $route['rutas']['get'] = 'rutas';
+$route['rutas/(:any)']['get'] = 'rutas/findD/$1';
 $route['rutas/(:any)/(:any)']['get'] = 'rutas/find/$1/$2';
 $route['rutas/(:any)/(:any)/(:any)']['get'] = 'rutas/findh/$1/$2/$3';
 $route['rutasimg']['get'] = 'rutas/findimg';

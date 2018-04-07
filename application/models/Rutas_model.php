@@ -13,9 +13,14 @@ class Rutas_model extends CI_Model{
 				$query = $this->db->query("CALL proc_verHorario('".$ciudad_in."','".$ciudad_out."','".$fecha."')");
 				return $query->result_array();
 			} else {
-				if( (is_null($ciudad_in)) && (is_null($ciudad_out)) && (is_null($fecha)) ){
-					$query = $this->db->query("select * from vista_rutas");
-					return $query->result_array();
+				if( (!is_null($ciudad_in)) && (is_null($ciudad_out)) && (is_null($fecha)) ){
+					$query = $this->db->query("call proc_verDestino('".$ciudad_in."')");
+						return $query->result_array();
+				} else {
+					if( (is_null($ciudad_in)) && (is_null($ciudad_out)) && (is_null($fecha)) ){
+						$query = $this->db->query("select * from vista_rutas");
+						return $query->result_array();
+					}
 				}
 			}
 		}

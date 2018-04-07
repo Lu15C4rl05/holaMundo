@@ -34,6 +34,20 @@ class Rutas extends REST_Controller {
 		}
 	}
 
+	public function findD_get($ciudad_in){
+		if(!$ciudad_in){
+			$this->response(array('error' => 'No existen destinos'), 400);
+		}
+
+		$ruta = $this->rutas_model->get($ciudad_in);
+
+		if(!is_null($ruta)){
+			$this->response(array('response' => $ruta), 200);
+		} else {
+			$this->response(array('error' => 'Ruta no encontrada'), 404);
+		}
+	}
+
 	public function findh_get($ciudad_in,$ciudad_out,$fecha){
 		if(!$ciudad_in || !$ciudad_out || !$fecha){
 			$this->response(array('error' => 'Horario no encontrado'), 400);
