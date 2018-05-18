@@ -42,7 +42,7 @@ class Rutas_model extends CI_Model{
 		}
 		return null;
 	}
-
+/*
 	public function save($ruta){
 		$this->db->set($this->setRuta($ruta))->insert('tbl_ruta');
 
@@ -50,8 +50,8 @@ class Rutas_model extends CI_Model{
 			return $this->db->insert_id();
 		}
 		return false;
-	}
-
+	}*/
+/*
 	public function updat($id, $ruta){
 		$this->db->set($this->setRuta($ruta))->where('ID_RUTA', $id)->update('tbl_ruta');
 
@@ -68,7 +68,7 @@ class Rutas_model extends CI_Model{
 			return true;
 		}
 		return false;
-	}
+	}*/
 }
 
 ?>

@@ -36,15 +36,22 @@ class Clientes extends REST_Controller {
 	}
 
 	public function index_post(){
-		if (!$this->post('cliente')) {
-			$this->response(null, 400);
-		}
-
-		$id = $this->clientes_model->save($this->post('cliente'));
-		if (!is_null($id)) {
-			$this->response(array('response' => $id), 200);
+		$cliente = array();
+		$cliente['ID_CLI'] = $this->post('ID_CLI');
+		$cliente['CEDULA_CLI'] = $this->post('CEDULA_CLI');
+		$cliente['ID_CIUDAD'] = $this->post('ID_CIUDAD');
+		$cliente['NOMBRE_CLI'] = $this->post('NOMBRE_CLI');
+		$cliente['APELLIDO_CLI'] = $this->post('APELLIDO_CLI');
+		$cliente['CORREO_CLI'] = $this->post('CORREO_CLI');
+		$cliente['PASSWORD'] = $this->post('PASSWORD');
+		$isinserted = $this->clientes_model->save($cliente);
+		if($isinserted===false){
+				$this->response("Por favor intentelo de nuevo.", REST_Controller::HTTP_BAD_REQUEST);
 		} else {
-			$this->response(array('error' => 'Algo ha fallado en el servidor. Acción no procesada'), 400);
+			$this->response([
+				'status' => TRUE,
+				'message' => 'Ingreso satisfactorio.'
+			], REST_Controller::HTTP_OK);
 		}
 	}
 

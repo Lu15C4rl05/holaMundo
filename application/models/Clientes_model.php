@@ -21,15 +21,17 @@ class Clientes_model extends CI_Model{
 		return null;
 	}
 
-	public function save($pasajero){
-		$this->db->set($this->setPasajero($pasajero))->insert('tbl_pasajeros');
+	public function save($cliente = array()){
+		$this->db->insert('tbl_cliente', $cliente);
 
 		if($this->db->affected_rows() === 1){
-			return $this->db->insert_id();
+			return true;
+		} else {
+			return false;
 		}
-		return false;
+		
 	}
-
+/*
 	public function updat($id, $pasajero){
 		$this->db->set($this->setPasajero($pasajero))->where('codigo_pasaj', $id)->update('tbl_pasajeros');
 
@@ -47,13 +49,17 @@ class Clientes_model extends CI_Model{
 		}
 		return false;
 	}
+*/
 
-
-	private function setPasajero($pasajero){
+	private function setCliente($cliente){
 		return array(
-			'codigo_pasaj' => $pasajero['codigo_pasaj'],
-			'nombre_pasaj' => $pasajero['nombre_pasaj'],
-			'codigoVer_pasaj' => $pasajero['codigoVer_pasaj']
+			'ID_CLI' => $cliente['ID_CLI'],
+			'CEDULA_CLI' => $cliente['CEDULA_CLI'],
+			'ID_CIUDAD' => $cliente['ID_CIUDAD'],
+			'NOMBRE_CLI' => $cliente['NOMBRE_CLI'],
+			'APELLIDO_CLI' => $cliente['APELLIDO_CLI'],
+			'CORREO_CLI' => $cliente['CORREO_CLI'],
+			'PASSWORD_CLI' => $cliente['PASSWORD_CLI']
 		);
 	}
 
