@@ -61,12 +61,9 @@ class Clientes extends REST_Controller {
 		$usuario['PASSWORD'] = $this->post('PASSWORD');
 		$existeUsuario = $this->clientes_model->existeUsuario($usuario);
 		if($existeUsuario){
-			$this->response([
-				'status' => TRUE,
-				'message' => 'Usuario y contraseña válidos.'
-			], REST_Controller::HTTP_OK);
+			$this->response('Usuario y contraseña válidos.', REST_Controller::HTTP_OK);
 		} else {
-			$this->response("Usuario o contraseña incorrectos.", REST_Controller::HTTP_BAD_REQUEST);
+			$this->response('Usuario o contraseña incorrectos.', REST_Controller::HTTP_BAD_REQUEST);
 		}
 
 	}
