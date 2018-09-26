@@ -54,6 +54,22 @@ class Clientes extends REST_Controller {
 			], REST_Controller::HTTP_OK);
 		}
 	}
+	
+	public function existe_post(){
+		$usuario = array();
+		$usuario['CORREO_CLI'] = $this->post('CORREO_CLI');
+		$usuario['PASSWORD'] = $this->post('PASSWORD');
+		$existeUsuario = $this->clientes_model->existeUsuario($usuario);
+		if($existeUsuario){
+			$this->response([
+				'status' => TRUE,
+				'message' => 'Usuario y contraseña válidos.'
+			], REST_Controller::HTTP_OK);
+		} else {
+			$this->response("Usuario o contraseña incorrectos.", REST_Controller::HTTP_BAD_REQUEST);
+		}
+
+	}
 
 	public function index_put(){
 		if(!$this->put('cliente') || $id){
