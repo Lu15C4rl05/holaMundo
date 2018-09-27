@@ -58,7 +58,6 @@ $route['clientes']['get'] = 'clientes';
 $route['clientes/(:num)']['get'] = 'clientes/find/$1';
 $route['clientes']['post'] = 'clientes/index';
 $route['clientes/auth']['post'] = 'clientes/existe';
-$route['clientes/getInf']['post'] = 'clientes/getInf';
 //$route['clientes/(:num)']['put'] = 'clientes/index/$1';
 //$route['clientes/(:num)']['delete'] = 'clientes/index/$1';
 
