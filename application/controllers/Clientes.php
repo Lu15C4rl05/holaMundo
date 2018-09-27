@@ -62,33 +62,14 @@ class Clientes extends REST_Controller {
 		$existeUsuario = $this->clientes_model->existeUsuario($usuario);
 		if($existeUsuario){
 			$this->response([
-				'mensaje' => 'Usuario y contraseña válidos.'
+				'mensaje' => 'Usuario y contraseña válidos.',
+				'response' => $existeUsuario
 			], REST_Controller::HTTP_OK);
 		} else {
 			$this->response([
 				'mensaje' => 'Usuario o contraseña incorrectos.'
-			], REST_Controller::HTTP_OK);
-		}
-
-	}
-	
-	public function getInf_post(){
-		$correo = $this->post('CORREO_CLI');
-		if (!$correo) {
-			$this->response(null, 400);
-		}
-
-		$datosUsuario = $this->clientes_model->getInf($correo);
-
-		if($datosUsuario===false){
-			$this->response([
-				'response' => 'El correo ingresado no existe en la base de datos.'
 			], REST_Controller::HTTP_BAD_REQUEST);
-		} else {
-			$this->response(array('response' => $datosUsuario), 200);
 		}
-
-	}
 
 	public function index_put(){
 		if(!$this->put('cliente') || $id){
