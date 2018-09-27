@@ -71,6 +71,24 @@ class Clientes extends REST_Controller {
 		}
 
 	}
+	
+	public function getInf_post(){
+		$correo = $this->post('CORREO_CLI');
+		if (!$correo) {
+			$this->response(null, 400);
+		}
+
+		$datosUsuario = $this->clientes_model->getInf($correo);
+
+		if($datosUsuario===false){
+			$this->response([
+				'response' => 'El correo ingresado no existe en la base de datos.'
+			], REST_Controller::HTTP_BAD_REQUEST);
+		} else {
+			$this->response(array('response' => $datosUsuario), 200);
+		}
+
+	}
 
 	public function index_put(){
 		if(!$this->put('cliente') || $id){
