@@ -70,6 +70,7 @@ class Clientes extends REST_Controller {
 				'mensaje' => 'Usuario o contraseña incorrectos.'
 			], REST_Controller::HTTP_BAD_REQUEST);
 		}
+	}
 
 	public function index_put(){
 		if(!$this->put('cliente') || $id){
