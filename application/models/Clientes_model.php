@@ -35,23 +35,15 @@ class Clientes_model extends CI_Model{
 	public function existeUsuario($usuario = array()){
 		$correo = $usuario['CORREO_CLI'];
 		$password = $usuario['PASSWORD'];
-		$query = $this->db->query("select * from tbl_cliente
+		$query = $this->db->query("select CEDULA_CLI, NOMBRE_CLI, APELLIDO_CLI from tbl_cliente
 			WHERE CORREO_CLI = '".$correo."' and PASSWORD = '".$password."'");
-		if($query->num_rows() === 1){
-			return true;
+		if($query->num_rows() > 0){
+			return $query->result_array();
 		} else {
 			return false;
 		}
 	}
 	
-	public function getInf($correo){
-		$query = $this->db->query("select CEDULA_CLI, NOMBRE_CLI, APELLIDO_CLI from tbl_cliente
-			WHERE CORREO_CLI = '".$correo."'");
-		if($query->num_rows() > 0){
-			return $query->result_array();
-		}
-		return false;
-	}
 /*
 	public function updat($id, $pasajero){
 		$this->db->set($this->setPasajero($pasajero))->where('codigo_pasaj', $id)->update('tbl_pasajeros');
