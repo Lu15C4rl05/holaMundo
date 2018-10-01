@@ -43,6 +43,21 @@ class Boletos_model extends CI_Model{
         		return false;
         	}
     	}
+	
+	public function obtenerRuta($ruta = array()){
+		$query = $this->db->query('select ID_RUTA from tbl_ruta ru
+				inner join tbl_ciudad cci on ru.ID_CIUDAD_INICIO=cci.ID_CIUDAD
+				inner join tbl_ciudad cco on ru.ID_CIUDAD_DESTINO=cco.ID_CIUDAD
+                inner join tbl_horario ho on ru.ID_HORARIO=ho.ID_HORARIO
+			where
+				concat(cci.NOMBRE_CIUDAD," - ",cco.NOMBRE_CIUDAD)="'.$ruta['NOMBRE_RUTA'].'" and
+				date_format(ho.HORA_SALIDA,"%H:%i:%S")="'.$ruta['HORA_RUTA'].'"');
+
+		if($query->num_rows() > 0){
+			return $query->result_array();
+		}
+		return null;
+	}
 
 	public function updat($id, $boleto){
 		//$this->db->set($this->setPasajero($pasajero))->where('codigo_pasaj', $id)->update('tbl_pasajeros');
