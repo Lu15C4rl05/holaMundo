@@ -37,19 +37,19 @@ class Boletos extends REST_Controller {
 	public function index_post()
 	{
 	    $Data = array();
-		$Data['ID_BOLETO'] = $this->post('ID_BOLETO');
 		$Data['ID_BUS'] = $this->post('ID_BUS');
 		$Data['ID_RUTA'] = $this->post('ID_RUTA');
 		$Data['ID_CLI'] = $this->post('ID_CLI');
-		$Data['NUMPERSONAS_BOLETO'] = $this->post('NUMPERSONAS_BOLETO');
+		$Data['FECHA_BOLETO'] = $this->post('FECHA_BOLETO');
 		$insert = $this->boletos_model->save($Data);
-		if($insert===false){
-				$this->response("Por favor intentelo de nuevo.", REST_Controller::HTTP_BAD_REQUEST);
+		if($insert){
+			$this->response([
+				'mensaje' => 'El boleto se ha guardado correctamente en la BD.'
+			], REST_Controller::HTTP_OK);
 		} else {
 			$this->response([
-				'status' => TRUE,
-				'message' => 'Ingreso satisfactorio.'
-			], REST_Controller::HTTP_OK);
+				'mensaje' => 'El boleto no se guardo en la BD.'
+			], REST_Controller::HTTP_BAD_REQUEST);
 		}
 	}
 
