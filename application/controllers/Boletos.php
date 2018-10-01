@@ -52,6 +52,19 @@ class Boletos extends REST_Controller {
 			], REST_Controller::HTTP_BAD_REQUEST);
 		}
 	}
+	
+	public function ruta_post(){
+		$ruta = array();
+		$ruta['NOMBRE_RUTA'] = $this->post('NOMBRE_RUTA');
+		$ruta['HORA_RUTA'] = $this->post('HORA_RUTA');
+		$id_ruta = $this->boletos_model->obtenerRuta($ruta);
+
+		if (!is_null($id_ruta)) {
+			$this->response(array('response' => $id_ruta), 200);
+		} else {
+			$this->response(array('error' => 'La ruta especificada no existe.'), 404);
+		}
+	}
 
 	public function index2_post() {
 		$id = $this->post('ID_BOLETO');
