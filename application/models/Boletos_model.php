@@ -35,14 +35,14 @@ class Boletos_model extends CI_Model{
 
 	public function save($data = array()) {
 		
-        $insert = $this->db->insert('tbl_boleto', $data);
+        	$insert = $this->db->insert('tbl_boleto', $data);
 
-         if($insert===null){
-            return false;
-        }else{
-            return true;
-        }
-    }
+        	if($this->db->affected_rows() === 1){
+            	return true;
+        	} else {
+        		return false;
+        	}
+    	}
 
 	public function updat($id, $boleto){
 		//$this->db->set($this->setPasajero($pasajero))->where('codigo_pasaj', $id)->update('tbl_pasajeros');
