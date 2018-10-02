@@ -40,7 +40,6 @@ class Boletos extends REST_Controller {
 		$Data['ID_BUS'] = $this->post('ID_BUS');
 		$Data['ID_RUTA'] = $this->post('ID_RUTA');
 		$Data['ID_CLI'] = $this->post('ID_CLI');
-		$Data['FECHA_BOLETO'] = $this->post('FECHA_BOLETO');
 		$insert = $this->boletos_model->save($Data);
 		if($insert){
 			$this->response([
