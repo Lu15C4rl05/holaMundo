@@ -59,16 +59,29 @@ class Clientes extends REST_Controller {
 		$usuario = array();
 		$usuario['CORREO_CLI'] = $this->post('CORREO_CLI');
 		$usuario['PASSWORD'] = $this->post('PASSWORD');
-		$existeUsuario = $this->clientes_model->existeUsuario($usuario);
-		if($existeUsuario){
-			$this->response([
-				'mensaje' => 'Usuario y contraseña válidos.',
-				'response' => $existeUsuario
-			], REST_Controller::HTTP_OK);
+		if ($usuario['PASSWORD'] != null){
+			$existeUsuario = $this->clientes_model->existeUsuario($usuario);
+			if($existeUsuario){
+				$this->response([
+					'mensaje' => 'Usuario y contraseña válidos.',
+					'response' => $existeUsuario
+				], REST_Controller::HTTP_OK);
+			} else {
+				$this->response([
+					'mensaje' => 'Usuario o contraseña incorrectos.'
+				], REST_Controller::HTTP_BAD_REQUEST);
+			}
 		} else {
-			$this->response([
-				'mensaje' => 'Usuario o contraseña incorrectos.'
-			], REST_Controller::HTTP_BAD_REQUEST);
+			$existeUsuario = $this->clientes_model->existeUsuario($usuario);
+			if($existeUsuario){
+				$this->response([
+					'mensaje' => 'El correo ingresado ya está registrado.'
+				], REST_Controller::HTTP_OK);
+			} else {
+				$this->response([
+					'mensaje' => 'El correo ingresado no está registrado.'
+				], REST_Controller::HTTP_BAD_REQUEST);
+			}
 		}
 	}
 
