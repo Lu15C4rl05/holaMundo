@@ -76,7 +76,7 @@ class Clientes extends REST_Controller {
 			if($existeUsuario){
 				$this->response([
 					'mensaje' => 'El correo ingresado ya está registrado.',
-					'codver' => $existeUsuario
+					'codver' => array($existeUsuario)
 				], REST_Controller::HTTP_OK);
 			} else {
 				$this->response([
