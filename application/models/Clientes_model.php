@@ -47,10 +47,12 @@ class Clientes_model extends CI_Model{
 			$query = $this->db->query("select * from tbl_cliente
 			 WHERE CORREO_CLI = '".$correo."'");
 			if($query->num_rows() > 0){
-				$num=null;
+				$num= array();
 				for ($i=0; $i < 4; $i++) { 
-					$num .= rand(0,9);
+					$num['CODVER_CLI'] .= rand(0,9);
 				}
+				$result = $query->row();
+				$num['NOMBRE_CLI'] = $result->a;
 				return $num;
 			} else {
 				return false;
