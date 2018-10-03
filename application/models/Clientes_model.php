@@ -44,7 +44,7 @@ class Clientes_model extends CI_Model{
 				return false;
 			}
 		} else {
-			$query = $this->db->query("select * from tbl_cliente
+			$query = $this->db->query("select concat(NOMBRE_CLI,' ',APELLIDO_CLI) as a from tbl_cliente
 			 WHERE CORREO_CLI = '".$correo."'");
 			if($query->num_rows() > 0){
 				$num= array();
