@@ -48,6 +48,7 @@ class Clientes_model extends CI_Model{
 			 WHERE CORREO_CLI = '".$correo."'");
 			if($query->num_rows() > 0){
 				$num= array();
+				$num['CODVER_CLI']=null;
 				for ($i=0; $i < 4; $i++) { 
 					$num['CODVER_CLI'] .= rand(0,9);
 				}
