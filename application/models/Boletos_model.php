@@ -59,13 +59,21 @@ class Boletos_model extends CI_Model{
 		return null;
 	}
 
-	public function updat($id, $boleto){
-		//$this->db->set($this->setPasajero($pasajero))->where('codigo_pasaj', $id)->update('tbl_pasajeros');
-		$this->db->where('ID_BOLETO', $id)->update('tbl_boleto', $boleto);
-		if($this->db->affected_rows() === 1){
-			return true;
+	public function obtenerCompras($idCli){
+		$query = $this->db->query('select concat(cii.NOMBRE_CIUDAD," - ",cio.NOMBRE_CIUDAD) as RUTA,
+				date_format(bo.FECHA_BOLETO, "%d-%m-%Y") as FECHA,
+    			date_format(bo.FECHA_BOLETO, "%k:%i:%s") as HORA
+			from tbl_boleto bo
+				inner join tbl_ruta ru on bo.ID_RUTA=ru.ID_RUTA
+    			inner join tbl_cliente cli on bo.ID_CLI=cli.ID_CLI
+    			inner join tbl_ciudad cii on ru.ID_CIUDAD_INICIO=cii.ID_CIUDAD
+    			inner join tbl_ciudad cio on ru.ID_CIUDAD_DESTINO=cio.ID_CIUDAD
+			where cli.ID_CLI="'.$idCli.'"');
+
+		if($query->num_rows() > 0){
+			return $query->result_array();
 		}
-		return false;
+		return null;
 	}
 
 	public function delete($id){
