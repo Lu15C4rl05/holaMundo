@@ -66,7 +66,7 @@ $route['boletos']['get'] = 'boletos';
 $route['boletos/(:num)']['get'] = 'boletos/find/$1';
 $route['boletos']['post'] = 'boletos/index';
 $route['boletos']['post'] = 'boletos/ruta';
-$route['boletos']['post'] = 'boletos/index2';
+$route['boletos']['post'] = 'boletos/compras';
 //$route['boletos/(:num)']['put'] = 'boletos/index/$1';
 //$route['boletos/(:num)']['delete'] = 'boletos/index/$1';
 
