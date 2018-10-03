@@ -68,7 +68,7 @@ class Boletos_model extends CI_Model{
     			inner join tbl_cliente cli on bo.ID_CLI=cli.ID_CLI
     			inner join tbl_ciudad cii on ru.ID_CIUDAD_INICIO=cii.ID_CIUDAD
     			inner join tbl_ciudad cio on ru.ID_CIUDAD_DESTINO=cio.ID_CIUDAD
-			where cli.ID_CLI="'.$idCli.'"');
+			where cli.ID_CLI="'.$idCli.'" order by FECHA DESC');
 
 		if($query->num_rows() > 0){
 			return $query->result_array();
