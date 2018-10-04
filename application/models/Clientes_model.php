@@ -60,27 +60,18 @@ class Clientes_model extends CI_Model{
 			}
 		}
 	}
+
+	public function actualizarUsuario($usuario = array()){
+		$query = $this->db->query('update tbl_cliente cli set
+			cli.CEDULA_CLI = "'.$usuario['CEDULA_CLI'].'", cli.NOMBRE_CLI = "'.$usuario['NOMBRE_CLI'].'", cli.APELLIDO_CLI = "'.$usuario['APELLIDO_CLI'].'", cli.PASSWORD = "'.$usuario['PASSWORD'].'"
+			where ID_CLI = "'.$usuario['ID_CLI'].'"');
+		if($this->db->affected_rows() === 1){
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
-/*
-	public function updat($id, $pasajero){
-		$this->db->set($this->setPasajero($pasajero))->where('codigo_pasaj', $id)->update('tbl_pasajeros');
-
-		if($this->db->affected_rows() === 1){
-			return true;
-		}
-		return false;
-	}
-
-	public function delete($id){
-		$this->db->where('codigo_pasaj', $id)->delete('tbl_pasajeros');
-
-		if($this->db->affected_rows() === 1){
-			return true;
-		}
-		return false;
-	}
-*/
-
 	private function setCliente($cliente){
 		return array(
 			'ID_CLI' => $cliente['ID_CLI'],
