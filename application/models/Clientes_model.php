@@ -44,7 +44,7 @@ class Clientes_model extends CI_Model{
 				return false;
 			}
 		} else {
-			$query = $this->db->query("select ID_CLI, NOMBRE_CLI, APELLIDO_CLI from tbl_cliente
+			$query = $this->db->query("select ID_CLI, CEDULA_CLI, NOMBRE_CLI, APELLIDO_CLI from tbl_cliente
 			 WHERE CORREO_CLI = '".$correo."'");
 			if($query->num_rows() > 0){
 				$num= array();
@@ -56,6 +56,7 @@ class Clientes_model extends CI_Model{
 				$result = $query->row();
 				$num['NOMBRE_CLI'] = $result->NOMBRE_CLI;
 				$num['APELLIDO_CLI'] = $result->APELLIDO_CLI;
+				$num['CEDULA_CLI'] = $result->CEDULA_CLI;
 				$num['ID_CLI'] = $result->ID_CLI;
 				return $num;
 			} else {
