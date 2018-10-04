@@ -85,32 +85,25 @@ class Clientes extends REST_Controller {
 			}
 		}
 	}
-
-	public function index_put(){
-		if(!$this->put('cliente') || $id){
-			$this->response(null, 400);
-		}
-
-		$update = $this->clientes_model->update($id, $this->put('cliente'));
-
-		if(!is_null($update)){
-			$this->response(array('response' => 'Cliente editado correctamente.'), 200);
-		} else {
-			$this->response(array('error' => 'Algo ha fallado en el servidor. Acción no procesada'), 400);
-		}
+	
+	public function update_post(){
+		$cliente = array();
+		$cliente['ID_CLI'] = $this->post('ID_CLI');
+		$cliente['CEDULA_CLI'] = $this->post('CEDULA_CLI');
+		$cliente['NOMBRE_CLI'] = $this->post('NOMBRE_CLI');
+		$cliente['APELLIDO_CLI'] = $this->post('APELLIDO_CLI');
+		$cliente['PASSWORD'] = $this->post('PASSWORD');
+		$result = $this->clientes_model->actualizarUsuario($cliente);
+        if($result){
+            $this->response([
+					'mensaje' => 'Actualización de usuario correcta.'
+				], REST_Controller::HTTP_OK);
+        }
+        else {
+            $this->response([
+					'mensaje' => 'El usuario no se actualizó.'
+				], REST_Controller::HTTP_BAD_REQUEST);
+        }
 	}
-
-	public function index_delete($id){
-		if(!$id){
-			$this->response(null, 400);
-		}
-		
-		$delete = $this->clientes_model->delete($id);
-
-		if(!is_null($delete)){
-			$this->response(array('response' => 'Cliente eliminado correctamente.'), 200);
-		} else {
-			$this->response(array('error' => 'Algo ha fallado en el servidor. Acción no procesada'), 400);
-		}
-	}
+	
 }
