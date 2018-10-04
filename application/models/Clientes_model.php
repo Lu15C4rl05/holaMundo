@@ -44,16 +44,18 @@ class Clientes_model extends CI_Model{
 				return false;
 			}
 		} else {
-			$query = $this->db->query("select concat(NOMBRE_CLI,' ',APELLIDO_CLI) as a from tbl_cliente
+			$query = $this->db->query("select ID_CLI, concat(NOMBRE_CLI,' ',APELLIDO_CLI) as a from tbl_cliente
 			 WHERE CORREO_CLI = '".$correo."'");
 			if($query->num_rows() > 0){
 				$num= array();
 				$num['CODVER_CLI']=null;
+				$num['ID_CLI'] =null;
 				for ($i=0; $i < 4; $i++) { 
 					$num['CODVER_CLI'] .= rand(0,9);
 				}
 				$result = $query->row();
 				$num['NOMBRE_CLI'] = $result->a;
+				$num['ID_CLI'] = $result->ID_CLI;
 				return $num;
 			} else {
 				return false;
