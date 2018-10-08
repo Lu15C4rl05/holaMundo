@@ -69,7 +69,7 @@ class Clientes extends REST_Controller {
 			} else {
 				$this->response([
 					'mensaje' => 'Usuario o contraseña incorrectos.'
-				], REST_Controller::HTTP_BAD_REQUEST);
+				], REST_Controller::HTTP_OK);
 			}
 		} else {
 			$existeUsuario = $this->clientes_model->existeUsuario($usuario);
@@ -81,7 +81,7 @@ class Clientes extends REST_Controller {
 			} else {
 				$this->response([
 					'mensaje' => 'El correo ingresado no está registrado.'
-				], REST_Controller::HTTP_BAD_REQUEST);
+				], REST_Controller::HTTP_OK);
 			}
 		}
 	}
