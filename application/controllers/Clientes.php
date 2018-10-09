@@ -89,6 +89,7 @@ class Clientes extends REST_Controller {
 	public function update_post(){
 		$cliente = array();
 		$cliente['ID_CLI'] = $this->post('ID_CLI');
+		$cliente['CORREO_CLI'] = $this->post('CORREO_CLI');
 		$cliente['CEDULA_CLI'] = $this->post('CEDULA_CLI');
 		$cliente['NOMBRE_CLI'] = $this->post('NOMBRE_CLI');
 		$cliente['APELLIDO_CLI'] = $this->post('APELLIDO_CLI');
