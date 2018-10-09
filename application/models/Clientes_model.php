@@ -66,8 +66,8 @@ class Clientes_model extends CI_Model{
 	}
 
 	public function actualizarUsuario($usuario = array()){
-		$query = $this->db->query('update tbl_cliente cli set
-			cli.CEDULA_CLI = "'.$usuario['CEDULA_CLI'].'", cli.NOMBRE_CLI = "'.$usuario['NOMBRE_CLI'].'", cli.APELLIDO_CLI = "'.$usuario['APELLIDO_CLI'].'", cli.PASSWORD = "'.$usuario['PASSWORD'].'"
+		$query = $this->db->query('update tbl_cliente set
+			CORREO_USU = "'.$usuario['CORREO_CLI'].'", CEDULA_CLI = "'.$usuario['CEDULA_CLI'].'", NOMBRE_CLI = "'.$usuario['NOMBRE_CLI'].'", APELLIDO_CLI = "'.$usuario['APELLIDO_CLI'].'", PASSWORD = "'.$usuario['PASSWORD'].'"
 			where ID_CLI = "'.$usuario['ID_CLI'].'"');
 		if($this->db->affected_rows() === 1){
 			return true;
