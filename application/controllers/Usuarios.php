@@ -3,22 +3,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 require_once APPPATH . 'libraries/REST_Controller.php';
 
-class Clientes extends REST_Controller {
+class Usuarios extends REST_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		$this->load->model('clientes_model');
+		$this->load->model('usuarios_model');
 	}
 
 	public function index_get(){
-		$clientes = $this->clientes_model->get();
+		$usuarios = $this->usuarios_model->get();
 
-		if (!is_null($clientes)) {
-			$this->response(array('response' => $clientes), 200);
+		if (!is_null($usuarios)) {
+			$this->response(array('response' => $usuarios), 200);
 		} else {
-			$this->response(array('error' => 'No existen clientes en la base de datos'), 404);
+			$this->response(array('error' => 'No existen usuarios en la base de datos'), 404);
 		}
-		//$this->load->view('insertar');
 	}
 
 	public function find_get($id){
@@ -26,25 +25,25 @@ class Clientes extends REST_Controller {
 			$this->response(null, 400);
 		}
 
-		$cliente = $this->clientes_model->get($id);
+		$usuario = $this->usuarios_model->get($id);
 
-		if(!is_null($cliente)){
-			$this->response(array('response' => $cliente), 200);
+		if(!is_null($usuario)){
+			$this->response(array('response' => $usuario), 200);
 		} else {
-			$this->response(array('error' => 'Cliente no encontrado'), 404);
+			$this->response(array('error' => 'Usuario no encontrado'), 404);
 		}
 	}
 
 	public function index_post(){
-		$cliente = array();
-		$cliente['ID_CLI'] = $this->post('ID_CLI');
-		$cliente['CEDULA_CLI'] = $this->post('CEDULA_CLI');
-		$cliente['ID_CIUDAD'] = $this->post('ID_CIUDAD');
-		$cliente['NOMBRE_CLI'] = $this->post('NOMBRE_CLI');
-		$cliente['APELLIDO_CLI'] = $this->post('APELLIDO_CLI');
-		$cliente['CORREO_CLI'] = $this->post('CORREO_CLI');
-		$cliente['PASSWORD'] = $this->post('PASSWORD');
-		$isinserted = $this->clientes_model->save($cliente);
+		$usuario = array();
+		$usuario['ID_USU'] = $this->post('ID_USU');
+		$usuario['CEDULA_USU'] = $this->post('CEDULA_USU');
+		$usuario['ID_CIUDAD'] = $this->post('ID_CIUDAD');
+		$usuario['NOMBRE_USU'] = $this->post('NOMBRE_USU');
+		$usuario['APELLIDO_USU'] = $this->post('APELLIDO_USU');
+		$usuario['CORREO_USU'] = $this->post('CORREO_USU');
+		$usuario['PASSWORD'] = $this->post('PASSWORD');
+		$isinserted = $this->usuarios_model->save($usuario);
 		if($isinserted===false){
 				$this->response("Por favor intentelo de nuevo.", REST_Controller::HTTP_BAD_REQUEST);
 		} else {
@@ -54,13 +53,13 @@ class Clientes extends REST_Controller {
 			], REST_Controller::HTTP_OK);
 		}
 	}
-	
+
 	public function existe_post(){
 		$usuario = array();
-		$usuario['CORREO_CLI'] = $this->post('CORREO_CLI');
+		$usuario['CORREO_USU'] = $this->post('CORREO_USU');
 		$usuario['PASSWORD'] = $this->post('PASSWORD');
 		if ($usuario['PASSWORD'] != null){
-			$existeUsuario = $this->clientes_model->existeUsuario($usuario);
+			$existeUsuario = $this->usuarios_model->existeUsuario($usuario);
 			if($existeUsuario){
 				$this->response([
 					'mensaje' => 'Usuario y contraseña válidos.',
@@ -69,10 +68,10 @@ class Clientes extends REST_Controller {
 			} else {
 				$this->response([
 					'mensaje' => 'Usuario o contraseña incorrectos.'
-				], REST_Controller::HTTP_OK);
+				], REST_Controller::HTTP_BAD_REQUEST);
 			}
 		} else {
-			$existeUsuario = $this->clientes_model->existeUsuario($usuario);
+			$existeUsuario = $this->usuarios_model->existeUsuario($usuario);
 			if($existeUsuario){
 				$this->response([
 					'mensaje' => 'El correo ingresado ya está registrado.',
@@ -85,16 +84,16 @@ class Clientes extends REST_Controller {
 			}
 		}
 	}
-	
+
 	public function update_post(){
-		$cliente = array();
-		$cliente['ID_CLI'] = $this->post('ID_CLI');
-		$cliente['CORREO_CLI'] = $this->post('CORREO_CLI');
-		$cliente['CEDULA_CLI'] = $this->post('CEDULA_CLI');
-		$cliente['NOMBRE_CLI'] = $this->post('NOMBRE_CLI');
-		$cliente['APELLIDO_CLI'] = $this->post('APELLIDO_CLI');
-		$cliente['PASSWORD'] = $this->post('PASSWORD');
-		$result = $this->clientes_model->actualizarUsuario($cliente);
+		$usuario = array();
+		$usuario['ID_USU'] = $this->post('ID_USU');
+		$usuario['CORREO_USU'] = $this->post('CORREO_USU');
+		$usuario['CEDULA_USU'] = $this->post('CEDULA_USU');
+		$usuario['NOMBRE_USU'] = $this->post('NOMBRE_USU');
+		$usuario['APELLIDO_USU'] = $this->post('APELLIDO_USU');
+		$usuario['PASSWORD'] = $this->post('PASSWORD');
+		$result = $this->usuarios_model->actualizarUsuario($usuario);
         if($result){
             $this->response([
 					'mensaje' => 'Actualización de usuario correcta.'
@@ -103,8 +102,8 @@ class Clientes extends REST_Controller {
         else {
             $this->response([
 					'mensaje' => 'El usuario no se actualizó.'
-				], REST_Controller::HTTP_BAD_REQUEST);
+				], REST_Controller::HTTP_OK);
         }
 	}
-	
+
 }
