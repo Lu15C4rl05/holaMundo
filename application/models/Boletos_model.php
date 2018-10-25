@@ -8,8 +8,8 @@ class Boletos_model extends CI_Model{
 		if(!is_null($id)){
 			$query = $this->db->select("bol.ID_BOLETO, bus.NUMERO_BUS, em.NOMBRE_EMPRESA,
 		CONCAT(cii.NOMBRE_CIUDAD,'-',cio.NOMBRE_CIUDAD) AS RUTA,
-		CONCAT(cli.APELLIDO_CLI,' ',cli.NOMBRE_CLI) as CLIENTE, bol.NUMPERSONAS_BOLETO AS ASIENTOS")->from(
-			'tbl_boleto bol')->join("tbl_bus bus","bol.ID_BUS=bus.ID_BUS")->join("tbl_ruta ru","bol.ID_RUTA=ru.ID_RUTA")->join("tbl_cliente cli","bol.ID_CLI=cli.ID_CLI")->join("tbl_ciudad cii","ru.ID_CIUDAD_INICIO=cii.ID_CIUDAD")->join("tbl_ciudad cio","ru.ID_CIUDAD_DESTINO=cio.ID_CIUDAD")->join("tbl_empresa em","bus.ID_EMPRESA=em.ID_EMPRESA")->where('bol.ID_BOLETO',$id)->get();
+		CONCAT(usu.APELLIDO_USU,' ',usu.NOMBRE_USU) as USUARIO, bol.NUMPERSONAS_BOLETO AS ASIENTOS")->from(
+			'tbl_boleto bol')->join("tbl_bus bus","bol.ID_BUS=bus.ID_BUS")->join("tbl_ruta ru","bol.ID_RUTA=ru.ID_RUTA")->join("tbl_usuario usu","bol.ID_USU=usu.ID_USU")->join("tbl_ciudad cii","ru.ID_CIUDAD_INICIO=cii.ID_CIUDAD")->join("tbl_ciudad cio","ru.ID_CIUDAD_DESTINO=cio.ID_CIUDAD")->join("tbl_empresa em","bus.ID_EMPRESA=em.ID_EMPRESA")->where('bol.ID_BOLETO',$id)->get();
 
 			if($query->num_rows() === 1){
 				return $query->row_array();
@@ -19,11 +19,11 @@ class Boletos_model extends CI_Model{
 
 		$query = $this->db->query("
 			SELECT  bol.ID_BOLETO, bus.NUMERO_BUS, CONCAT(cii.NOMBRE_CIUDAD,'-',cio.NOMBRE_CIUDAD) AS RUTA,
-		CONCAT(cli.APELLIDO_CLI,' ',cli.NOMBRE_CLI) as CLIENTE, bol.NUMPERSONAS_BOLETO AS ASIENTOS
+		CONCAT(usu.APELLIDO_USU,' ',usu.NOMBRE_USU) as USUARIO, bol.NUMPERSONAS_BOLETO AS ASIENTOS
 			FROM tbl_boleto bol
 			inner join tbl_bus bus on bol.ID_BUS=bus.ID_BUS
 			inner join tbl_ruta ru on bol.ID_RUTA= ru.ID_RUTA
-			inner join tbl_cliente cli on bol.ID_CLI=cli.ID_CLI
+			inner join tbl_usuario usu on bol.ID_USU=usu.ID_USU
 			inner join tbl_ciudad cii on ru.ID_CIUDAD_INICIO=cii.ID_CIUDAD
 			inner join tbl_ciudad cio on ru.ID_CIUDAD_DESTINO=cio.ID_CIUDAD;");
 
@@ -35,16 +35,16 @@ class Boletos_model extends CI_Model{
 
 	public function save($data = array()) {
 		
-        	$insert = $this->db->insert('tbl_boleto', $data);
+        $insert = $this->db->insert('tbl_boleto', $data);
 
-        	if($this->db->affected_rows() === 1){
-            	return true;
-        	} else {
-        		return false;
-        	}
-    	}
-	
-	public function obtenerRuta($ruta = array()){
+        if($this->db->affected_rows() === 1){
+            return true;
+        } else {
+        	return false;
+        }
+    }
+
+    public function obtenerRuta($ruta = array()){
 		$query = $this->db->query('select ID_RUTA from tbl_ruta ru
 				inner join tbl_ciudad cci on ru.ID_CIUDAD_INICIO=cci.ID_CIUDAD
 				inner join tbl_ciudad cco on ru.ID_CIUDAD_DESTINO=cco.ID_CIUDAD
@@ -59,16 +59,16 @@ class Boletos_model extends CI_Model{
 		return null;
 	}
 
-	public function obtenerCompras($idCli){
+	public function obtenerCompras($idUsu){
 		$query = $this->db->query('select concat(cii.NOMBRE_CIUDAD," - ",cio.NOMBRE_CIUDAD) as RUTA,
 				date_format(bo.FECHA_BOLETO, "%d-%m-%Y") as FECHA,
     			date_format(bo.FECHA_BOLETO, "%k:%i:%s") as HORA
 			from tbl_boleto bo
 				inner join tbl_ruta ru on bo.ID_RUTA=ru.ID_RUTA
-    			inner join tbl_cliente cli on bo.ID_CLI=cli.ID_CLI
+    			inner join tbl_usuario usu on bo.ID_USU=usu.ID_USU
     			inner join tbl_ciudad cii on ru.ID_CIUDAD_INICIO=cii.ID_CIUDAD
     			inner join tbl_ciudad cio on ru.ID_CIUDAD_DESTINO=cio.ID_CIUDAD
-			where cli.ID_CLI="'.$idCli.'" order by FECHA DESC');
+			where usu.ID_USU="'.$idUsu.'"');
 
 		if($query->num_rows() > 0){
 			return $query->result_array();
