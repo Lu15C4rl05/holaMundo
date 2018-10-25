@@ -53,12 +53,14 @@ $route['default_controller'] = 'rutas';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;
 
-//Routes para clientes del WSAppFlota
-$route['clientes']['get'] = 'clientes';
-$route['clientes/(:num)']['get'] = 'clientes/find/$1';
-$route['clientes']['post'] = 'clientes/index';
-$route['clientes/auth']['post'] = 'clientes/existe';
-$route['clientes/update']['post'] = 'clientes/update';
+//Routes para usuarios del WSAppFlota
+$route['usuarios']['get'] = 'usuarios';
+$route['usuarios/(:num)']['get'] = 'usuarios/find/$1';
+$route['usuarios']['post'] = 'usuarios/index';
+$route['usuarios/auth']['post'] = 'usuarios/existe';
+$route['usuarios/update']['post'] = 'usuarios/update';
+//$route['usuarios/(:num)']['put'] = 'usuarios/index/$1';
+//$route['usuarios/(:num)']['delete'] = 'usuarios/index/$1';
 
 //Routes para boletos del WSAppFlota
 $route['boletos']['get'] = 'boletos';
@@ -66,6 +68,8 @@ $route['boletos/(:num)']['get'] = 'boletos/find/$1';
 $route['boletos']['post'] = 'boletos/index';
 $route['boletos']['post'] = 'boletos/ruta';
 $route['boletos']['post'] = 'boletos/compras';
+//$route['boletos/(:num)']['put'] = 'boletos/index/$1';
+//$route['boletos/(:num)']['delete'] = 'boletos/index/$1';
 
 //Routes para rutas del WSAppFlota
 $route['rutas']['get'] = 'rutas';
