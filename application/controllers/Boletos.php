@@ -39,7 +39,7 @@ class Boletos extends REST_Controller {
 	    $Data = array();
 		$Data['ID_BUS'] = $this->post('ID_BUS');
 		$Data['ID_RUTA'] = $this->post('ID_RUTA');
-		$Data['ID_CLI'] = $this->post('ID_CLI');
+		$Data['ID_USU'] = $this->post('ID_USU');
 		$Data['FECHA_BOLETO'] = $this->post('FECHA_BOLETO');
 		$Data['QR_BOLETO'] = $this->post('QR_BOLETO');
 		$insert = $this->boletos_model->save($Data);
@@ -53,7 +53,7 @@ class Boletos extends REST_Controller {
 			], REST_Controller::HTTP_BAD_REQUEST);
 		}
 	}
-	
+
 	public function ruta_post(){
 		$ruta = array();
 		$ruta['NOMBRE_RUTA'] = $this->post('NOMBRE_RUTA');
@@ -68,12 +68,12 @@ class Boletos extends REST_Controller {
 	}
 
 	public function compras_post() {
-		$idCli = $this->post('ID_CLI');
-		$existeIdCli = $this->boletos_model->obtenerCompras($idCli);
-		if($existeIdCli != null){
+		$idUsu = $this->post('ID_USU');
+		$existeIdUsu = $this->boletos_model->obtenerCompras($idUsu);
+		if($existeIdUsu != null){
 			$this->response([
 				'mensaje' => 'El id ingresado ya está registrado.',
-				'response' => $existeIdCli
+				'response' => $existeIdUsu
 			], REST_Controller::HTTP_OK);
 		} else {
 			$this->response([
