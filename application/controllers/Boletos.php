@@ -42,6 +42,7 @@ class Boletos extends REST_Controller {
 		$Data['ID_USU'] = $this->post('ID_USU');
 		$Data['FECHA_BOLETO'] = $this->post('FECHA_BOLETO');
 		$Data['QR_BOLETO'] = $this->post('QR_BOLETO');
+		$Data['FECHA_VIAJE'] = $this->post('FECHA_VIAJE');
 		$insert = $this->boletos_model->save($Data);
 		if($insert){
 			$this->response([
