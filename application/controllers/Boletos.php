@@ -72,12 +72,12 @@ class Boletos extends REST_Controller {
 		$existeIdUsu = $this->boletos_model->obtenerCompras($idUsu);
 		if($existeIdUsu != null){
 			$this->response([
-				'mensaje' => 'El id ingresado ya está registrado.',
+				'mensaje' => 'El usuario ingresado registra las siguientes compras.',
 				'response' => $existeIdUsu
 			], REST_Controller::HTTP_OK);
 		} else {
 			$this->response([
-				'mensaje' => 'El id ingresado no está registrado.'
+				'mensaje' => 'El usuario no regitra compras.'
 			], REST_Controller::HTTP_OK);
 		}
 	}
