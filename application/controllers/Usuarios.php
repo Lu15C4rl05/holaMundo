@@ -43,6 +43,7 @@ class Usuarios extends REST_Controller {
 		$usuario['APELLIDO_USU'] = $this->post('APELLIDO_USU');
 		$usuario['CORREO_USU'] = $this->post('CORREO_USU');
 		$usuario['PASSWORD'] = $this->post('PASSWORD');
+		$usuario['FECHA_CREACION_USU'] = $this->post('FECHA_CREACION_USU');
 		$isinserted = $this->usuarios_model->save($usuario);
 		if($isinserted===false){
 				$this->response("Por favor intentelo de nuevo.", REST_Controller::HTTP_BAD_REQUEST);
