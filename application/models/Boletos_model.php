@@ -60,15 +60,25 @@ class Boletos_model extends CI_Model{
 	}
 
 	public function obtenerCompras($idUsu){
-		$query = $this->db->query('select concat(cii.NOMBRE_CIUDAD," - ",cio.NOMBRE_CIUDAD) as RUTA,
-				date_format(bo.FECHA_BOLETO, "%d-%m-%Y") as FECHA,
-    			date_format(bo.FECHA_BOLETO, "%k:%i:%s") as HORA
-			from tbl_boleto bo
-				inner join tbl_ruta ru on bo.ID_RUTA=ru.ID_RUTA
-    			inner join tbl_usuario usu on bo.ID_USU=usu.ID_USU
-    			inner join tbl_ciudad cii on ru.ID_CIUDAD_INICIO=cii.ID_CIUDAD
-    			inner join tbl_ciudad cio on ru.ID_CIUDAD_DESTINO=cio.ID_CIUDAD
-			where usu.ID_USU="'.$idUsu.'"');
+		$query = $this->db->query('select
+			bo.FECHA_BOLETO as FECHA_COMPRA,
+			concat(cii.NOMBRE_CIUDAD," - ",cio.NOMBRE_CIUDAD) as RUTA,
+			date_format(bo.FECHA_VIAJE, "%d/%m/%Y") AS FECHA_SALIDA,
+			date_format(ho.HORA_SALIDA, "%k:%i:%s") AS HORA_SALIDA,
+			usu.CEDULA_USU AS CEDULA,
+			concat(usu.NOMBRE_USU," ",usu.APELLIDO_USU) as NOMBRES_USUARIO,
+			usu.CORREO_USU AS CORREO,
+			ru.COSTO_RUTA,
+			bo.QR_BOLETO
+		from tbl_boleto bo
+			inner join tbl_ruta ru on bo.ID_RUTA=ru.ID_RUTA
+            inner join tbl_horario ho on ru.ID_HORARIO=ho.ID_HORARIO
+    		inner join tbl_usuario usu on bo.ID_USU=usu.ID_USU
+    		inner join tbl_ciudad cii on ru.ID_CIUDAD_INICIO=cii.ID_CIUDAD
+    		inner join tbl_ciudad cio on ru.ID_CIUDAD_DESTINO=cio.ID_CIUDAD
+		where usu.ID_USU="'.$idUsu.'" and
+			bo.FECHA_VIAJE > NOW()
+		order by FECHA_COMPRA DESC');
 
 		if($query->num_rows() > 0){
 			return $query->result_array();
