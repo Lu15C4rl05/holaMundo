@@ -78,7 +78,7 @@ class Boletos extends REST_Controller {
 		} else {
 			$this->response([
 				'mensaje' => 'El id ingresado no está registrado.'
-			], REST_Controller::HTTP_BAD_REQUEST);
+			], REST_Controller::HTTP_OK);
 		}
 	}
 
