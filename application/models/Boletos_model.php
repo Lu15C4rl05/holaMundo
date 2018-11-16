@@ -77,7 +77,7 @@ class Boletos_model extends CI_Model{
     		inner join tbl_ciudad cii on ru.ID_CIUDAD_INICIO=cii.ID_CIUDAD
     		inner join tbl_ciudad cio on ru.ID_CIUDAD_DESTINO=cio.ID_CIUDAD
 		where usu.ID_USU="'.$idUsu.'" and
-			bo.FECHA_VIAJE > NOW()
+			bo.FECHA_VIAJE > NOW() - interval 5 hour
 		order by FECHA_COMPRA DESC');
 
 		if($query->num_rows() > 0){
