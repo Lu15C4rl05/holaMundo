@@ -79,8 +79,13 @@ class Usuarios extends REST_Controller {
 					'codver' => array($existeUsuario)
 				], REST_Controller::HTTP_OK);
 			} else {
+				$CODVER_USU=null;
+				for ($i=0; $i < 4; $i++) { 
+					$CODVER_USU .= rand(0,9);
+				}
 				$this->response([
-					'mensaje' => 'El correo ingresado no está registrado.'
+					'mensaje' => 'El correo ingresado no está registrado.',
+					'codver' => $CODVER_USU
 				], REST_Controller::HTTP_OK);
 			}
 		}
