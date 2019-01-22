@@ -16,13 +16,13 @@ class Boletos extends REST_Controller {
 		if (!is_null($boletos)) {
 			$this->response(array('response' => $boletos), 200);
 		} else {
-			$this->response(array('error' => 'No existen boletos en la base de datos'), 404);
+			$this->response(array('error' => 'No existen boletos en la base de datos'), 200);
 		}
 	}
 
 	public function find_get($id){
 		if(!$id){
-			$this->response(null, 400);
+			$this->response(null, 200);
 		}
 
 		$boleto = $this->boletos_model->get($id);
@@ -30,7 +30,7 @@ class Boletos extends REST_Controller {
 		if(!is_null($boleto)){
 			$this->response(array('response' => $boleto), 200);
 		} else {
-			$this->response(array('error' => 'Boleto no encontrado'), 404);
+			$this->response(array('error' => 'Boleto no encontrado'), 200);
 		}
 	}
 
@@ -51,7 +51,7 @@ class Boletos extends REST_Controller {
 		} else {
 			$this->response([
 				'mensaje' => 'El boleto no se guardo en la BD.'
-			], REST_Controller::HTTP_BAD_REQUEST);
+			], REST_Controller::HTTP_OK);
 		}
 	}
 
@@ -64,7 +64,7 @@ class Boletos extends REST_Controller {
 		if (!is_null($id_ruta)) {
 			$this->response(array('response' => $id_ruta), 200);
 		} else {
-			$this->response(array('error' => 'La ruta especificada no existe.'), 404);
+			$this->response(array('error' => 'La ruta especificada no existe.'), 200);
 		}
 	}
 
@@ -85,7 +85,7 @@ class Boletos extends REST_Controller {
 
 	public function index_delete($id){
 		if(!$id){
-			$this->response(null, 400);
+			$this->response(null, 200);
 		}
 		
 		$delete = $this->boletos_model->delete($id);
@@ -93,7 +93,7 @@ class Boletos extends REST_Controller {
 		if(!is_null($delete)){
 			$this->response(array('response' => 'Boleto eliminado correctamente.'), 200);
 		} else {
-			$this->response(array('error' => 'Algo ha fallado en el servidor. Acción no procesada'), 400);
+			$this->response(array('error' => 'Algo ha fallado en el servidor. Acción no procesada'), 200);
 		}
 	}
 }
