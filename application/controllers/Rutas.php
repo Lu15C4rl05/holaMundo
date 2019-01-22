@@ -16,13 +16,13 @@ class Rutas extends REST_Controller {
 		if (!is_null($rutas)) {
 			$this->response(array('response' => $rutas), 200);
 		} else {
-			$this->response(array('error' => 'No existen rutas en la base de datos'), 404);
+			$this->response(array('error' => 'No existen rutas en la base de datos'), 200);
 		}
 	}
 
 	public function find_get($ciudad_in,$ciudad_out){
 		if(!$ciudad_in || !$ciudad_out){
-			$this->response(array('error' => 'Ruta no encontrada'), 400);
+			$this->response(array('error' => 'Ruta no encontrada'), 200);
 		}
 
 		$ruta = $this->rutas_model->get($ciudad_in,$ciudad_out);
@@ -30,13 +30,13 @@ class Rutas extends REST_Controller {
 		if(!is_null($ruta)){
 			$this->response(array('response' => $ruta), 200);
 		} else {
-			$this->response(array('error' => 'Ruta no encontrada'), 404);
+			$this->response(array('error' => 'Ruta no encontrada'), 200);
 		}
 	}
 
 	public function findD_get($ciudad_in){
 		if(!$ciudad_in){
-			$this->response(array('error' => 'No existen destinos'), 400);
+			$this->response(array('error' => 'No existen destinos'), 200);
 		}
 
 		$ruta = $this->rutas_model->get($ciudad_in);
@@ -44,13 +44,13 @@ class Rutas extends REST_Controller {
 		if(!is_null($ruta)){
 			$this->response(array('response' => $ruta), 200);
 		} else {
-			$this->response(array('error' => 'Ruta no encontrada'), 404);
+			$this->response(array('error' => 'Ruta no encontrada'), 200);
 		}
 	}
 
 	public function findh_get($ciudad_in,$ciudad_out,$fecha){
 		if(!$ciudad_in || !$ciudad_out || !$fecha){
-			$this->response(array('error' => 'Horario no encontrado'), 400);
+			$this->response(array('error' => 'Horario no encontrado'), 200);
 		}
 
 		$ruta = $this->rutas_model->get($ciudad_in,$ciudad_out,$fecha);
@@ -58,7 +58,7 @@ class Rutas extends REST_Controller {
 		if(!is_null($ruta)){
 			$this->response(array('response' => $ruta), 200);
 		} else {
-			$this->response(array('error' => 'Ruta no encontrada'), 404);
+			$this->response(array('error' => 'Ruta no encontrada'), 200);
 		}
 	}
 
@@ -68,7 +68,7 @@ class Rutas extends REST_Controller {
 		if(!is_null($ruta)){
 			$this->response(array('response' => $ruta), 200);
 		} else {
-			$this->response(array('error' => 'Ruta no encontrado'), 404);
+			$this->response(array('error' => 'Ruta no encontrado'), 200);
 		}
 	}
 
@@ -81,7 +81,7 @@ class Rutas extends REST_Controller {
 		$Data['COSTO_RUTA'] = $this->post('COSTO_RUTA');
 		$insert = $this->rutas_model->save($Data);
 		if($insert===false){
-				$this->response("Por favor intentelo de nuevo.", REST_Controller::HTTP_BAD_REQUEST);
+				$this->response("Por favor intentelo de nuevo.", REST_Controller::HTTP_OK);
 		} else {
 			$this->response([
 				'status' => TRUE,
@@ -104,13 +104,13 @@ class Rutas extends REST_Controller {
 				'message' => 'Actualizacion satisfactoria.'
 			], REST_Controller::HTTP_OK);
 		}else{
-			$this->response("Por favor intentelo de nuevo.", REST_Controller::HTTP_BAD_REQUEST);
+			$this->response("Por favor intentelo de nuevo.", REST_Controller::HTTP_OK);
 		}
 	}
 
 	public function index_delete($id){
 		if(!$id){
-			$this->response(null, 400);
+			$this->response(null, 200);
 		}
 		
 		$delete = $this->rutas_model->delete($id);
@@ -118,7 +118,7 @@ class Rutas extends REST_Controller {
 		if(!is_null($delete)){
 			$this->response(array('response' => 'Ruta eliminada correctamente.'), 200);
 		} else {
-			$this->response(array('error' => 'Algo ha fallado en el servidor. Acción no procesada'), 400);
+			$this->response(array('error' => 'Algo ha fallado en el servidor. Acción no procesada'), 200);
 		}
 	}
 }
