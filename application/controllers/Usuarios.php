@@ -16,13 +16,13 @@ class Usuarios extends REST_Controller {
 		if (!is_null($usuarios)) {
 			$this->response(array('response' => $usuarios), 200);
 		} else {
-			$this->response(array('error' => 'No existen usuarios en la base de datos'), 404);
+			$this->response(array('error' => 'No existen usuarios en la base de datos'), 200);
 		}
 	}
 
 	public function find_get($id){
 		if(!$id){
-			$this->response(null, 400);
+			$this->response(null, 200);
 		}
 
 		$usuario = $this->usuarios_model->get($id);
@@ -30,7 +30,7 @@ class Usuarios extends REST_Controller {
 		if(!is_null($usuario)){
 			$this->response(array('response' => $usuario), 200);
 		} else {
-			$this->response(array('error' => 'Usuario no encontrado'), 404);
+			$this->response(array('error' => 'Usuario no encontrado'), 200);
 		}
 	}
 
@@ -46,7 +46,7 @@ class Usuarios extends REST_Controller {
 		$usuario['FECHA_CREACION_USU'] = $this->post('FECHA_CREACION_USU');
 		$isinserted = $this->usuarios_model->save($usuario);
 		if($isinserted===false){
-				$this->response("Por favor intentelo de nuevo.", REST_Controller::HTTP_BAD_REQUEST);
+				$this->response("Por favor intentelo de nuevo.", REST_Controller::HTTP_OK);
 		} else {
 			$this->response([
 				'status' => TRUE,
@@ -69,7 +69,7 @@ class Usuarios extends REST_Controller {
 			} else {
 				$this->response([
 					'mensaje' => 'Usuario o contraseña incorrectos.'
-				], REST_Controller::HTTP_BAD_REQUEST);
+				], REST_Controller::HTTP_OK);
 			}
 		} else {
 			$existeUsuario = $this->usuarios_model->existeUsuario($usuario);
