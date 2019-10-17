@@ -78,6 +78,12 @@ $route['rutas/(:any)/(:any)']['get'] = 'rutas/find/$1/$2';
 $route['rutas/(:any)/(:any)/(:any)']['get'] = 'rutas/findh/$1/$2/$3';
 $route['rutasimg']['get'] = 'rutas/findimg';
 
+//Routes para conductores del WSAppFlota
+$route['conductores']['get'] = 'conductores';//Lista todos los conductores de la tabla
+$route['conductores/(:num)']['get'] = 'conductores/find/$1';//Lista un conductor pasando su ID
+$route['conductores']['post'] = 'conductores/index';//Inserta un conductor
+$route['conductores/update']['post'] = 'conductores/update';//Actualiza al conductor
+
 //Routes para ciudades del WSAppFlota
 $route['ciudades']['get'] = 'ciudades';
 /*
