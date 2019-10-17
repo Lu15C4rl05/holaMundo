@@ -51,15 +51,20 @@ class Conductores extends REST_Controller {
 		$conductor['ESTADO_COND'] = $this->post('ESTADO_COND');
 		$isinserted = $this->conductores_model->save($conductor);
 		if($isinserted===false){
-				$this->response("Por favor intentelo de nuevo.", REST_Controller::HTTP_OK);
+			$this->response([
+				'status' => FALSE,
+				'mensaje' => 'No se inserto ningun dato, revise los parámetros.',
+				'detalles' => 'Los campos de teléfono y correo pueden ser nulos. Los campos de cédula y correo son únicos.'
+			], REST_Controller::HTTP_OK);
 		} else {
 			$this->response([
 				'status' => TRUE,
-				'message' => 'Ingreso satisfactorio.'
+				'mensaje' => 'Ingreso satisfactorio.'
 			], REST_Controller::HTTP_OK);
 		}
 	}
 
+	//Método de actualización de un conductor
 	public function update_post(){
 		$conductor = array();
 		$conductor['ID_COND'] = $this->post('ID_COND');
@@ -71,14 +76,16 @@ class Conductores extends REST_Controller {
 		$result = $this->conductores_model->actualizarConductor($conductor);
         if($result){
             $this->response([
-					'mensaje' => 'Actualización de chofer correcta.'
-				], REST_Controller::HTTP_OK);
+            	'status' => TRUE,
+				'mensaje' => 'Actualización de chofer correcta.'
+			], REST_Controller::HTTP_OK);
         }
         else {
             $this->response([
-					'mensaje' => 'El chofer no se actualizó.'
-				], REST_Controller::HTTP_OK);
+            	'status' => FALSE,
+				'mensaje' => 'El chofer no se actualizó.'
+			], REST_Controller::HTTP_OK);
         }
 	}
 
-}
+}//Fin
