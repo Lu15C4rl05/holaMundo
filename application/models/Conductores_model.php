@@ -32,7 +32,7 @@ class Conductores_model extends CI_Model{
 		
 	}
 
-	public function actualizarConductor($usuario = array()){
+	public function actualizarConductor($conductor = array()){
 		$query = $this->db->query('update tbl_conductor set
 			FOTO_COND = "'.$conductor['FOTO_COND'].'", CORREO_COND = "'.$conductor['CORREO_COND'].'", DIRECCION_COND = "'.$conductor['DIRECCION_COND'].'", TELEFONO_COND = "'.$conductor['TELEFONO_COND'].'", ESTADO_COND = "'.$conductor['ESTADO_COND'].'"
 			where ID_COND = "'.$conductor['ID_COND'].'"');

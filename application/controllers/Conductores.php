@@ -14,8 +14,8 @@ class Conductores extends REST_Controller {
 	public function index_get(){
 		$conductores = $this->conductores_model->get();
 
-		if (!is_null($usuarios)) {
-			$this->response(array('response' => $usuarios), 200);
+		if (!is_null($conductores)) {
+			$this->response(array('response' => $conductores), 200);
 		} else {
 			$this->response(array('error' => 'No existen conductores en la base de datos'), 200);
 		}
@@ -62,6 +62,7 @@ class Conductores extends REST_Controller {
 
 	public function update_post(){
 		$conductor = array();
+		$conductor['ID_COND'] = $this->post('ID_COND');
 		$conductor['FOTO_COND'] = $this->post('FOTO_COND');
 		$conductor['CORREO_COND'] = $this->post('CORREO_COND');
 		$conductor['DIRECCION_COND'] = $this->post('DIRECCION_COND');
@@ -70,12 +71,12 @@ class Conductores extends REST_Controller {
 		$result = $this->conductores_model->actualizarConductor($conductor);
         if($result){
             $this->response([
-					'mensaje' => 'Actualización de usuario correcta.'
+					'mensaje' => 'Actualización de chofer correcta.'
 				], REST_Controller::HTTP_OK);
         }
         else {
             $this->response([
-					'mensaje' => 'El usuario no se actualizó.'
+					'mensaje' => 'El chofer no se actualizó.'
 				], REST_Controller::HTTP_OK);
         }
 	}
