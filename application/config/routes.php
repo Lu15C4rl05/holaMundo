@@ -57,8 +57,8 @@ $route['translate_uri_dashes'] = TRUE;
 $route['usuarios']['get'] = 'usuarios';
 $route['usuarios/(:num)']['get'] = 'usuarios/find/$1';
 $route['usuarios']['post'] = 'usuarios/index';
-$route['usuarios/auth']['post'] = 'usuarios/existe';
 $route['usuarios/update']['post'] = 'usuarios/update';
+$route['usuarios/auth']['post'] = 'usuarios/existe';
 //$route['usuarios/(:num)']['put'] = 'usuarios/index/$1';
 //$route['usuarios/(:num)']['delete'] = 'usuarios/index/$1';
 

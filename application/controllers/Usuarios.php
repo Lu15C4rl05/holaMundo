@@ -93,11 +93,10 @@ class Usuarios extends REST_Controller {
 	public function update_post(){
 		$usuario = array();
 		$usuario['ID_USU'] = $this->post('ID_USU');
+		$usuario['ID_CIUDAD'] = $this->post('ID_CIUDAD');
 		$usuario['CORREO_USU'] = $this->post('CORREO_USU');
-		$usuario['CEDULA_USU'] = $this->post('CEDULA_USU');
-		$usuario['NOMBRE_USU'] = $this->post('NOMBRE_USU');
-		$usuario['APELLIDO_USU'] = $this->post('APELLIDO_USU');
 		$usuario['PASSWORD'] = $this->post('PASSWORD');
+		$usuario['TELEFONO_USU'] = $this->post('TELEFONO_USU');
 		$result = $this->usuarios_model->actualizarUsuario($usuario);
         if($result){
             $this->response([
