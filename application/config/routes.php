@@ -54,13 +54,17 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;
 
 //Routes para usuarios del WSAppFlota
-$route['usuarios']['get'] = 'usuarios';
-$route['usuarios/(:num)']['get'] = 'usuarios/find/$1';
-$route['usuarios']['post'] = 'usuarios/index';
-$route['usuarios/update']['post'] = 'usuarios/update';
-$route['usuarios/auth']['post'] = 'usuarios/existe';
-//$route['usuarios/(:num)']['put'] = 'usuarios/index/$1';
-//$route['usuarios/(:num)']['delete'] = 'usuarios/index/$1';
+$route['usuarios']['get'] = 'usuarios';//Lista todos los usuarios de la tabla
+$route['usuarios/(:num)']['get'] = 'usuarios/find/$1';//Lista un usuario pasando su ID
+$route['usuarios']['post'] = 'usuarios/index';//Inserta un usuario
+$route['usuarios/update']['post'] = 'usuarios/update';//Actualiza al usuario
+$route['usuarios/auth']['post'] = 'usuarios/existe';//Devuelve si un correo ya ha sido registrado o si los datos de un usuario y contraseña son correctos. Además genera un código de verificación de 4 dígitos.
+
+//Routes para conductores del WSAppFlota
+$route['conductores']['get'] = 'conductores';//Lista todos los conductores de la tabla
+$route['conductores/(:num)']['get'] = 'conductores/find/$1';//Lista un conductor pasando su ID
+$route['conductores']['post'] = 'conductores/index';//Inserta un conductor
+$route['conductores/update']['post'] = 'conductores/update';//Actualiza al conductor
 
 //Routes para boletos del WSAppFlota
 $route['boletos']['get'] = 'boletos';
@@ -77,12 +81,6 @@ $route['rutas/(:any)']['get'] = 'rutas/findD/$1';
 $route['rutas/(:any)/(:any)']['get'] = 'rutas/find/$1/$2';
 $route['rutas/(:any)/(:any)/(:any)']['get'] = 'rutas/findh/$1/$2/$3';
 $route['rutasimg']['get'] = 'rutas/findimg';
-
-//Routes para conductores del WSAppFlota
-$route['conductores']['get'] = 'conductores';//Lista todos los conductores de la tabla
-$route['conductores/(:num)']['get'] = 'conductores/find/$1';//Lista un conductor pasando su ID
-$route['conductores']['post'] = 'conductores/index';//Inserta un conductor
-$route['conductores/update']['post'] = 'conductores/update';//Actualiza al conductor
 
 //Routes para ciudades del WSAppFlota
 $route['ciudades']['get'] = 'ciudades';

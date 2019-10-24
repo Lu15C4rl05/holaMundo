@@ -43,6 +43,8 @@ class Usuarios extends REST_Controller {
 		$usuario['APELLIDO_USU'] = $this->post('APELLIDO_USU');
 		$usuario['CORREO_USU'] = $this->post('CORREO_USU');
 		$usuario['PASSWORD'] = $this->post('PASSWORD');
+		$usuario['TELEFONO_USU'] = $this->post('TELEFONO_USU');
+		$usuario['DIRECCION_USU'] = $this->post('DIRECCION_USU');
 		$isinserted = $this->usuarios_model->save($usuario);
 		if($isinserted===false){
 				$this->response("Por favor intentelo de nuevo.", REST_Controller::HTTP_OK);
@@ -97,6 +99,7 @@ class Usuarios extends REST_Controller {
 		$usuario['CORREO_USU'] = $this->post('CORREO_USU');
 		$usuario['PASSWORD'] = $this->post('PASSWORD');
 		$usuario['TELEFONO_USU'] = $this->post('TELEFONO_USU');
+		$usuario['DIRECCION_USU'] = $this->post('DIRECCION_USU');
 		$result = $this->usuarios_model->actualizarUsuario($usuario);
         if($result){
             $this->response([

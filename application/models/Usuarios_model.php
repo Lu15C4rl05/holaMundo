@@ -66,26 +66,18 @@ class Usuarios_model extends CI_Model{
 	}
 
 	public function actualizarUsuario($usuario = array()){
-		$query = $this->db->query('update tbl_usuario set
-			CORREO_USU = "'.$usuario['CORREO_USU'].'", TELEFONO_USU = "'.$usuario['TELEFONO_USU'].'",  PASSWORD = "'.$usuario['PASSWORD'].'"
+		if($usuario['ID_CIUDAD'] != null){
+			$query = $this->db->query('update tbl_usuario set CORREO_USU = "'.$usuario['CORREO_USU'].'", TELEFONO_USU = "'.$usuario['TELEFONO_USU'].'", ID_CIUDAD = "'.$usuario['ID_CIUDAD'].'", DIRECCION_USU = "'.$usuario['DIRECCION_USU'].'",  PASSWORD = "'.$usuario['PASSWORD'].'"
 			where ID_USU = "'.$usuario['ID_USU'].'"');
+		} else {
+			$query = $this->db->query('update tbl_usuario set CORREO_USU = "'.$usuario['CORREO_USU'].'", TELEFONO_USU = "'.$usuario['TELEFONO_USU'].'", DIRECCION_USU = "'.$usuario['DIRECCION_USU'].'",  PASSWORD = "'.$usuario['PASSWORD'].'"
+			where ID_USU = "'.$usuario['ID_USU'].'"');
+		}
 		if($this->db->affected_rows() === 1){
 			return true;
 		} else {
 			return false;
 		}
-	}
-
-	private function setUsuario($usuario){
-		return array(
-			'ID_USU' => $usuario['ID_USU'],
-			'CEDULA_USU' => $usuario['CEDULA_USU'],
-			'ID_CIUDAD' => $usuario['ID_CIUDAD'],
-			'NOMBRE_USU' => $usuario['NOMBRE_USU'],
-			'APELLIDO_USU' => $usuario['APELLIDO_USU'],
-			'CORREO_USU' => $usuario['CORREO_USU'],
-			'PASSWORD_USU' => $usuario['PASSWORD_USU']
-		);
 	}
 
 }
