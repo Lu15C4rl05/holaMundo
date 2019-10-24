@@ -108,17 +108,14 @@ class Rutas extends REST_Controller {
 		}
 	}
 
-	public function index_delete($id){
-		if(!$id){
-			$this->response(null, 200);
-		}
-		
-		$delete = $this->rutas_model->delete($id);
+	public function ciudadesOrigen_get(){
+		$ciudades = $this->rutas_model->getCiudadesOrigen();
 
-		if(!is_null($delete)){
-			$this->response(array('response' => 'Ruta eliminada correctamente.'), 200);
+		if (!is_null($ciudades)) {
+			$this->response(array('response' => $ciudades), 200);
 		} else {
-			$this->response(array('error' => 'Algo ha fallado en el servidor. Acción no procesada'), 200);
+			$this->response(array('error' => 'No existen ciudades de origen, cree una ruta.'), 200);
 		}
 	}
+
 }

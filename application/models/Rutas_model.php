@@ -29,7 +29,7 @@ class Rutas_model extends CI_Model{
 		}
 		return null;				
 	}
-
+	//Obtiene la ruta "ORIGEN - DESTINO", la imagen de la ciudad destino y el número de boeltos vendido de cada ruta
 	public function getimg(){
 		$query = $this->db->query("select * from vista_imagenes_ruta");
 
@@ -39,6 +39,15 @@ class Rutas_model extends CI_Model{
 			 	$datos[] = $row;
 			 }
 			 return $datos;
+		}
+		return null;
+	}
+	//Obtiene las ciudades origen de las rutas existentes
+	public function getCiudadesOrigen(){
+		$query = $this->db->query("select distinct cii.NOMBRE_CIUDAD AS NOMBRE_CIUDAD from tbl_ruta ru
+			inner join tbl_ciudad cii on ru.ID_CIUDAD_INICIO= cii.ID_CIUDAD");
+		if($query->num_rows() > 0){
+			return $query->result_array();
 		}
 		return null;
 	}
