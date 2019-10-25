@@ -66,6 +66,12 @@ $route['conductores/(:num)']['get'] = 'conductores/find/$1';//Lista un conductor
 $route['conductores']['post'] = 'conductores/index';//Inserta un conductor
 $route['conductores/update']['post'] = 'conductores/update';//Actualiza al conductor
 
+//Routes para ciudades del WSAppFlota
+$route['ciudades']['get'] = 'ciudades';//Lista todas las ciudades de la tabla
+$route['ciudades/(:num)']['get'] = 'ciudades/find/$1';//Lista una ciudad pasando su ID
+$route['ciudades']['post'] = 'ciudades/index';//Inserta una ciudad
+$route['ciudades/update']['post'] = 'ciudades/update';//Actualiza la ciudad
+
 //Routes para boletos del WSAppFlota
 $route['boletos']['get'] = 'boletos';
 $route['boletos/(:num)']['get'] = 'boletos/find/$1';
@@ -81,9 +87,8 @@ $route['rutas/(:any)']['get'] = 'rutas/findD/$1';
 $route['rutas/(:any)/(:any)']['get'] = 'rutas/find/$1/$2';
 $route['rutas/(:any)/(:any)/(:any)']['get'] = 'rutas/findh/$1/$2/$3';
 $route['rutasimg']['get'] = 'rutas/findimg';
+$route['rutasOrigen']['get'] = 'rutas/ciudadesOrigen';//Lista la(s) ciudades origen de las rutas activas
 
-//Routes para ciudades del WSAppFlota
-$route['ciudades']['get'] = 'ciudades';
 /*
 | -------------------------------------------------------------------------
 | Sample REST API Routes
