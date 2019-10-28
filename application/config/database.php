@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'dbflota.cpx7rpwqopgn.us-west-2.rds.amazonaws.com:3306',
+	'hostname' => 'dbflota.cpx7rpwqopgn.us-west-2.rds.amazonaws.com',
 	'username' => 'root',
 	'password' => 'Sqlflota00',
 	'database' => 'appboletos',

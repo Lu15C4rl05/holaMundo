@@ -4,6 +4,9 @@ Options FollowSymLinks
 	RewriteCond %[REQUEST_FILENAME] !-f
 	RewriteCond %[REQUEST_FILENAME] !-d
 	RewriteRule ^(.*)$ index.php?/$1 [L]
+	
+	SetEnv CLOUDINARY_URL cloudinary://997935884995124:CHwmYqFRlNC9vCrMhyCpyP05xtM@hdpoyu0ip 
+	
 </IfModule>
 
 <IfModule !mod_rewrite.c>
