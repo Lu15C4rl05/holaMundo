@@ -40,7 +40,7 @@ class RolesUsuario extends REST_Controller {
 		}
 	}
 
-	//Método para eliminar un rol de un usuario
+	//Método para eliminar el rol de un usuario
 	public function delete_post(){
 		$rol_usuario = array();
 		$rol_usuario['ID_USU'] = $this->post('ID_USU');
@@ -59,25 +59,25 @@ class RolesUsuario extends REST_Controller {
 		}
 	}
 
-	// //Método de actualización de un rol de usuario
-	// public function update_post(){
-	// 	$rol_usuario = array();
-	// 	$rol_usuario['ID_ROL_USUARIO'] = $this->post('ID_ROL_USUARIO');
-	// 	$rol_usuario['ID_USU'] = $this->post('ID_USU');
-	// 	$rol_usuario['ID_ROL'] = $this->post('ID_ROL');
-	// 	$result = $this->rolesusuario_model->update($rol_usuario);
- //        if($result){
- //            $this->response([
- //            	'status' => TRUE,
-	// 			'mensaje' => 'Actualización de rol correcta.'
-	// 		], REST_Controller::HTTP_OK);
- //        }
- //        else {
- //            $this->response([
- //            	'status' => FALSE,
-	// 			'mensaje' => 'El rol no se actualizó.'
-	// 		], REST_Controller::HTTP_OK);
- //        }
-	// }
+	//Método de actualización de un rol de usuario
+	public function update_post(){
+		$rol_usuario = array();
+		$rol_usuario['ID_ROL_USUARIO'] = $this->post('ID_ROL_USUARIO');
+		$rol_usuario['ID_USU'] = $this->post('ID_USU');
+		$rol_usuario['ID_ROL'] = $this->post('ID_ROL');
+		$result = $this->rolesusuario_model->update($rol_usuario);
+        if($result){
+            $this->response([
+            	'status' => TRUE,
+				'mensaje' => 'Actualización de rol correcta.'
+			], REST_Controller::HTTP_OK);
+        }
+        else {
+            $this->response([
+            	'status' => FALSE,
+				'mensaje' => 'El rol no se actualizó.'
+			], REST_Controller::HTTP_OK);
+        }
+	}
 
 }

@@ -5,7 +5,7 @@ class RolesUsuario_model extends CI_Model
 	{ }
 
 	public function get($id) {
-		$query = $this->db->query('select ru.ID_ROL, rol.DESCRIPCION_ROL
+		$query = $this->db->query('select ru.ID_ROL_USUARIO, rol.DESCRIPCION_ROL
 		from tbl_rol_usuario ru inner join tbl_rol rol on ru.ID_ROL = rol.ID_ROL
 		where ru.ID_USU="'.$id.'"');
 		if ($query->num_rows() > 0) {
@@ -42,14 +42,14 @@ class RolesUsuario_model extends CI_Model
 		}
 	}
 
-	// public function update($rol_usuario = array()) {
-	// 	$this->db->query('update tbl_rol_usuario set ID_ROL = "' . $rol_usuario['ID_ROL'] . '"
-	// 		where ID_ROL_USUARIO = "' . $rol_usuario['ID_ROL_USUARIO'] . '" AND ID_USU = "'. $rol_usuario['ID_USU'] .'"');
+	public function update($rol_usuario = array()) {
+		$this->db->query('update tbl_rol_usuario set ID_ROL = "' . $rol_usuario['ID_ROL'] . '"
+			where ID_ROL_USUARIO = "' . $rol_usuario['ID_ROL_USUARIO'] . '" AND ID_USU = "'. $rol_usuario['ID_USU'] .'"');
 
-	// 	if ($this->db->affected_rows() === 1) {
-	// 		return true;
-	// 	} else {
-	// 		return false;
-	// 	}
-	// }
+		if ($this->db->affected_rows() === 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
