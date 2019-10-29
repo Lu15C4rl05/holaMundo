@@ -72,6 +72,15 @@ $route['ciudades/(:num)']['get'] = 'ciudades/find/$1';//Lista una ciudad pasando
 $route['ciudades']['post'] = 'ciudades/index';//Inserta una ciudad
 $route['ciudades/update']['post'] = 'ciudades/update';//Actualiza la ciudad
 
+//Routes para roles de usuario del WSAppFlota
+$route['rolesusuario/(:num)']['get'] = 'rolesusuario/find/$1';//Lista el(los) roles de un usuario pasando su ID
+$route['rolesusuario']['post'] = 'rolesusuario/index';//Agrega un rol a un usuario.
+// $route['rolesusuario/update']['post'] = 'rolesusuario/update';//Agrega un rol a un usuario.
+$route['rolesusuario/delete']['post'] = 'rolesusuario/delete';//Agrega un rol a un usuario.
+// $route['ciudades/update']['post'] = 'ciudades/update';//Actualiza la ciudad
+
+//--------------------------------------------------------------------------------------------------------
+
 //Routes para boletos del WSAppFlota
 $route['boletos']['get'] = 'boletos';
 $route['boletos/(:num)']['get'] = 'boletos/find/$1';
