@@ -46,22 +46,28 @@ class Conductores extends REST_Controller
 	public function index_post()
 	{
 
-		$file = $_FILES['file']['tmp_name'];
-		$public_id = $_POST['public_id'];
-		try {
-			$foto = $this->cloudinary_files->saveFile($file, $public_id);
-		} catch (Exception $e) {
-			return $this->response([
-				'status' => 400,
-				'mensaje' => 'Error en ingreso de imagen ' + $e
-			], REST_Controller::HTTP_BAD_REQUEST);
+		$foto = '';
+		if (isset($_FILES['file'])) {
+			$file = $_FILES['file']['tmp_name'];
+			$public_id = $_POST['public_id'];
+			try {
+				$foto = $this->cloudinary_files->saveFile($file, $public_id);
+				$foto = $foto['secure_url'];
+			} catch (Exception $e) {
+				return $this->response([
+					'status' => 400,
+					'mensaje' => 'Error en ingreso de imagen ' + $e
+				], REST_Controller::HTTP_BAD_REQUEST);
+			}
 		}
+
+
 		$conductor = array();
 		$conductor['ID_EMPRESA'] = $_POST['ID_EMPRESA'];
 		$conductor['CEDULA_COND'] = $_POST['CEDULA_COND'];
 		$conductor['NOMBRE_COND'] = $_POST['NOMBRE_COND'];
 		$conductor['APELLIDO_COND'] = $_POST['APELLIDO_COND'];
-		$conductor['FOTO_COND'] = $foto['secure_url'];
+		$conductor['FOTO_COND'] = $foto;
 		$conductor['CORREO_COND'] = $_POST['CORREO_COND'];
 		$conductor['DIRECCION_COND'] = $_POST['DIRECCION_COND'];
 		$conductor['TELEFONO_COND'] = $_POST['TELEFONO_COND'];
@@ -85,20 +91,23 @@ class Conductores extends REST_Controller
 	//Método de actualización de un conductor
 	public function update_post()
 	{
-
-		$file = $_FILES['file']['tmp_name'];
-		$public_id = $_POST['public_id'];
-		try {
-			$foto = $this->cloudinary_files->saveFile($file, $public_id);
-		} catch (Exception $e) {
-			return $this->response([
-				'status' => 400,
-				'mensaje' => 'Error en ingreso de imagen ' + $e
-			], REST_Controller::HTTP_BAD_REQUEST);
+		$foto = null;
+		if (isset($_FILES['file'])) {
+			$public_id = $_POST['public_id'];
+			$file = $_FILES['file']['tmp_name'];
+			try {
+				$foto = $this->cloudinary_files->saveFile($file, $public_id);
+				$foto = $foto['secure_url'];
+			} catch (Exception $e) {
+				return $this->response([
+					'status' => 400,
+					'mensaje' => 'Error en ingreso de imagen ' + $e
+				], REST_Controller::HTTP_BAD_REQUEST);
+			}
 		}
 		$conductor = array();
 		$conductor['ID_COND'] = $_POST['ID_COND'];
-		$conductor['FOTO_COND'] =  $foto['secure_url'];
+		$conductor['FOTO_COND'] =  $foto;
 		$conductor['CORREO_COND'] = $_POST['CORREO_COND'];
 		$conductor['DIRECCION_COND'] = $_POST['DIRECCION_COND'];
 		$conductor['TELEFONO_COND'] = $_POST['TELEFONO_COND'];
@@ -119,6 +128,7 @@ class Conductores extends REST_Controller
 	}
 
 
+
 	public function delete_put()
 	{
 		$id_cond = $this->put('id_cond'); //desde json body
@@ -132,6 +142,33 @@ class Conductores extends REST_Controller
 
 		// print_r($user);
 		$response = $this->conductores_model->deleteDriver($id_cond);
+		return $this->response([
+			'response' => $response,
+			'usuario' => $id_cond,
+			'status' => 200
+		], 200);
+	}
+
+
+	public function inactivos_get()
+	{
+
+		return $this->response($this->conductores_model->getInactiveDrivers());
+	}
+
+	public function update_inactivos_put()
+	{
+		$id_cond = $this->put('id_cond'); //desde json body
+		// print_r($username);
+		$user_resp = $this->conductores_model->get($id_cond);
+		if ($user_resp == null) {
+			$status = 400;
+			// $status = parent::Htttp;
+			return $this->response(['msg' => 'Usuario no encontrado', 'status' => $status], $status);
+		}
+
+		// print_r($user);
+		$response = $this->conductores_model->updateDriverToActive($id_cond);
 		return $this->response([
 			'response' => $response,
 			'usuario' => $id_cond,
