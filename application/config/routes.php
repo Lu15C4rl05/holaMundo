@@ -78,6 +78,12 @@ $route['rolesusuario']['post'] = 'rolesusuario/index';//Agrega un rol a un usuar
 $route['rolesusuario/update']['post'] = 'rolesusuario/update';//Actualiza el rol de un usuario.
 $route['rolesusuario/delete']['post'] = 'rolesusuario/delete';//Elimina el rol de un usuario.
 
+//Routes para empresas del WSAppFlota
+$route['empresas']['get'] = 'empresas';//Lista todas las empresas de la tabla
+$route['empresas/(:num)']['get'] = 'empresas/find/$1';//Lista una empresa pasando su ID
+$route['empresas']['post'] = 'empresas/index';//Inserta una empresa
+$route['empresas/update']['post'] = 'empresas/update';//Actualiza la empresa
+
 //--------------------------------------------------------------------------------------------------------
 
 //Routes para boletos del WSAppFlota
