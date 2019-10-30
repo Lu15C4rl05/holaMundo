@@ -31,17 +31,6 @@ class RolesUsuario_model extends CI_Model
 		}
 	}
 
-	public function delete($rol_usuario = array()) {
-		$this->db->query('delete from tbl_rol_usuario
-			where ID_USU = "'.$rol_usuario['ID_USU'].'" and ID_ROL = "'.$rol_usuario['ID_ROL'].'"');
-
-		if ($this->db->affected_rows() === 1) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	public function update($rol_usuario = array()) {
 		$this->db->query('update tbl_rol_usuario set ID_ROL = "' . $rol_usuario['ID_ROL'] . '"
 			where ID_ROL_USUARIO = "' . $rol_usuario['ID_ROL_USUARIO'] . '" AND ID_USU = "'. $rol_usuario['ID_USU'] .'"');
@@ -52,4 +41,16 @@ class RolesUsuario_model extends CI_Model
 			return false;
 		}
 	}
+
+	public function delete($rol_usuario) {
+		$this->db->query('delete from tbl_rol_usuario
+			where ID_ROL_USUARIO = "'.$rol_usuario['ID_USU'].'"');
+
+		if ($this->db->affected_rows() === 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

@@ -40,25 +40,6 @@ class RolesUsuario extends REST_Controller {
 		}
 	}
 
-	//Método para eliminar el rol de un usuario
-	public function delete_post(){
-		$rol_usuario = array();
-		$rol_usuario['ID_USU'] = $this->post('ID_USU');
-		$rol_usuario['ID_ROL'] = $this->post('ID_ROL');
-		$isdeleted = $this->rolesusuario_model->delete($rol_usuario);
-		if($isdeleted===false){
-			$this->response([
-				'status' => FALSE,
-				'mensaje' => 'No se eliminó ningun rol al usuario.'
-			], REST_Controller::HTTP_OK);
-		} else {
-			$this->response([
-				'status' => TRUE,
-				'mensaje' => 'Se eliminó el rol del usuario.'
-			], REST_Controller::HTTP_OK);
-		}
-	}
-
 	//Método de actualización de un rol de usuario
 	public function update_post(){
 		$rol_usuario = array();
@@ -78,6 +59,23 @@ class RolesUsuario extends REST_Controller {
 				'mensaje' => 'El rol no se actualizó.'
 			], REST_Controller::HTTP_OK);
         }
+	}
+
+	//Método para eliminar el rol de un usuario
+	public function delete_post(){
+		$rol_usuario = $this->post('ID_ROL_USUARIO');
+		$isdeleted = $this->rolesusuario_model->delete($rol_usuario);
+		if($isdeleted===false){
+			$this->response([
+				'status' => FALSE,
+				'mensaje' => 'No se eliminó ningun rol al usuario.'
+			], REST_Controller::HTTP_OK);
+		} else {
+			$this->response([
+				'status' => TRUE,
+				'mensaje' => 'Se eliminó el rol del usuario.'
+			], REST_Controller::HTTP_OK);
+		}
 	}
 
 }
