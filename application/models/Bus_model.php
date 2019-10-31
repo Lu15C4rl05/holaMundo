@@ -11,6 +11,15 @@ class Bus_model extends CI_Model
         return $query->result();
     }
 
+
+    public function getBusById($id_bus,$estado_bus)
+    {
+        $this->db->where('ESTADO_BUS', $estado_bus);
+        $this->db->where('ID_BUS', $id_bus);
+        $query = $this->db->get('view_bus');
+        return $query->result();
+    }
+
     public function saveBus($bus)
     {
         $this->db->insert('tbl_bus', $bus);
@@ -39,6 +48,31 @@ class Bus_model extends CI_Model
         $this->db->where('ID_BUS', $bus['id_bus']);
         return $this->db->update('tbl_bus');
     }
+
+
+
+    public function deleteBus($id_bus)
+	{
+		$this->db->set('ESTADO_BUS', 0);
+		$this->db->where('ID_BUS', $id_bus);
+		return $this->db->update('tbl_bus');
+    }
+    
+
+    public function getInactiveBuses()
+	{
+		$this->db->where('ESTADO_BUS', 0);
+		$query = $this->db->get('view_bus');
+		return $query->result();
+	}
+
+
+	public function updateBusToActive($id_bus)
+	{
+		$this->db->set('ESTADO_BUS', 1);
+		$this->db->where('ID_BUS', $id_bus);
+		return $this->db->update('tbl_bus');
+	}
 
 
 }//end class
