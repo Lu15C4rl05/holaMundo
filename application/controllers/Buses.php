@@ -43,11 +43,11 @@ class Buses extends REST_Controller
     public function index_post()
     {
         $bus = array();
-        $bus['ID_EMPRESA'] = $_POST['ID_EMPRESA'];
         $bus['ID_COND'] = $_POST['ID_COND'];
         $bus['NUMERO_BUS'] = $_POST['NUMERO_BUS'];
         $bus['ASIENTOS_BUS'] = $_POST['ASIENTOS_BUS'];
         $bus['DOS_PISOS_BUS'] = $_POST['DOS_PISOS_BUS'];
+        $bus['ID_EMPRESA'] = $this->buses_model->getCoopFromCond($bus['ID_COND']);
         $existe = $this->buses_model->busExists($bus);
         if ($existe)
             return $this->response([

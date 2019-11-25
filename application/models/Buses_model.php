@@ -36,9 +36,8 @@ class Buses_model extends CI_Model
     //Determina si el número de un bus, ya fue ingresado anteriormente en la cooperativa.
     public function busExists($bus)
     {
-        $this->db->where('ID_EMPRESA', $bus['ID_EMPRESA']);
-        $this->db->where('NUMERO_BUS', $bus['NUMERO_BUS']);
-        $query = $this->db->get('tbl_bus');
+        $query = $this->db->query('select * from tbl_bus b inner join tbl_conductor c on b.ID_COND=c.ID_COND 
+            where b.NUMERO_BUS='.$bus['NUMERO_BUS'].' and c.ID_EMPRESA='.$bus['ID_EMPRESA']);
         if ($query->num_rows() == 1)
             return true;
         return false;
@@ -78,5 +77,12 @@ class Buses_model extends CI_Model
 		$query = $this->db->get('view_bus');
 		return $query->result();
 	}
+
+    //Obtiene la cooperativa de transporte a la que pertenece un conductor
+    public function getCoopFromCond($id_cond){
+        $query = $this->db->query('select ID_EMPRESA from tbl_conductor where ID_COND='.$id_cond);
+        $row = $query->row_array();
+        return $row['ID_EMPRESA'];
+    }
 
 }//end class
