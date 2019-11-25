@@ -61,7 +61,6 @@ class Conductores extends REST_Controller
 			}
 		}
 
-
 		$conductor = array();
 		$conductor['ID_EMPRESA'] = $_POST['ID_EMPRESA'];
 		$conductor['CEDULA_COND'] = $_POST['CEDULA_COND'];
@@ -79,7 +78,7 @@ class Conductores extends REST_Controller
 				'status' => FALSE,
 				'mensaje' => 'No se inserto ningun dato, revise los parámetros.',
 				'detalles' => 'Los campos de teléfono y correo pueden ser nulos. Los campos de cédula y correo son únicos.'
-			], 400);
+			], 200);
 		} else {
 			$this->response([
 				'status' => 200,
@@ -132,7 +131,6 @@ class Conductores extends REST_Controller
 	public function delete_put()
 	{
 		$id_cond = $this->put('id_cond'); //desde json body
-		// print_r($username);
 		$user_resp = $this->conductores_model->get($id_cond);
 		if ($user_resp == null) {
 			$status = 400;

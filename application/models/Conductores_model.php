@@ -43,11 +43,11 @@ class Conductores_model extends CI_Model
 	public function actualizarConductor($conductor = array())
 	{
 		if ($conductor['FOTO_COND'] != null)
-			$this->db->set('FOTO_COND', $conductor['FOTO_COND']); //editar solo el tipo de susuario
-		$this->db->set('CORREO_COND', $conductor['CORREO_COND']); //editar solo el tipo de susuario
-		$this->db->set('DIRECCION_COND', $conductor['DIRECCION_COND']); //editar solo el tipo de susuario
-		$this->db->set('TELEFONO_COND', $conductor['TELEFONO_COND']); //editar solo el tipo de susuario
-		$this->db->set('ESTADO_COND', $conductor['ESTADO_COND']); //editar solo el tipo de susuario
+			$this->db->set('FOTO_COND', $conductor['FOTO_COND']); //cambia la foto si ésta no es null
+		$this->db->set('CORREO_COND', $conductor['CORREO_COND']);
+		$this->db->set('DIRECCION_COND', $conductor['DIRECCION_COND']);
+		$this->db->set('TELEFONO_COND', $conductor['TELEFONO_COND']);
+		$this->db->set('ESTADO_COND', $conductor['ESTADO_COND']);
 		$this->db->where('ID_COND', $conductor['ID_COND']);
 		$this->db->update('tbl_conductor');
 
