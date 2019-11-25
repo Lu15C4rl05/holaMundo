@@ -56,44 +56,51 @@ $route['translate_uri_dashes'] = TRUE;
 //Routes para usuarios del WSAppFlota
 $route['usuarios']['get'] = 'usuarios';//Lista todos los usuarios de la tabla
 $route['usuarios/(:num)']['get'] = 'usuarios/find/$1';//Lista un usuario pasando su ID
-$route['usuarios']['post'] = 'usuarios/index';//Inserta un usuario
+$route['usuarios']['post'] = 'usuarios';//Inserta un usuario
 $route['usuarios/update']['post'] = 'usuarios/update';//Actualiza al usuario
 $route['usuarios/auth']['post'] = 'usuarios/existe';//Devuelve si un correo ya ha sido registrado o si los datos de un usuario y contraseña son correctos. Además genera un código de verificación de 4 dígitos.
 
 //Routes para conductores del WSAppFlota
 $route['conductores']['get'] = 'conductores';//Lista todos los conductores de la tabla
 $route['conductores/(:num)']['get'] = 'conductores/find/$1';//Lista un conductor pasando su ID
-$route['conductores']['post'] = 'conductores/index';//Inserta un conductor
+$route['conductores']['post'] = 'conductores';//Inserta un conductor
 $route['conductores/update']['post'] = 'conductores/update';//Actualiza al conductor
 
 //Routes para ciudades del WSAppFlota
 $route['ciudades']['get'] = 'ciudades';//Lista todas las ciudades de la tabla
 $route['ciudades/(:num)']['get'] = 'ciudades/find/$1';//Lista una ciudad pasando su ID
-$route['ciudades']['post'] = 'ciudades/index';//Inserta una ciudad
+$route['ciudades']['post'] = 'ciudades';//Inserta una ciudad
 $route['ciudades/update']['post'] = 'ciudades/update';//Actualiza la ciudad
 
 //Routes para roles de usuario del WSAppFlota
 $route['rolesusuario/(:num)']['get'] = 'rolesusuario/find/$1';//Lista el(los) roles de un usuario pasando su ID
-$route['rolesusuario']['post'] = 'rolesusuario/index';//Agrega un rol a un usuario.
+$route['rolesusuario']['post'] = 'rolesusuario';//Agrega un rol a un usuario.
 $route['rolesusuario/update']['post'] = 'rolesusuario/update';//Actualiza el rol de un usuario.
 $route['rolesusuario/delete']['post'] = 'rolesusuario/delete';//Elimina el rol de un usuario.
 
 //Routes para empresas del WSAppFlota
 $route['empresas']['get'] = 'empresas';//Lista todas las empresas de la tabla
 $route['empresas/(:num)']['get'] = 'empresas/find/$1';//Lista una empresa pasando su ID
-$route['empresas']['post'] = 'empresas/index';//Inserta una empresa
+$route['empresas']['post'] = 'empresas';//Inserta una empresa
 $route['empresas/update']['post'] = 'empresas/update';//Actualiza la empresa
+
+//Routes para buses del WSAppFlota
+$route['buses']['get'] = 'buses';//Lista los buses de la tabla que estan activos
+$route['buses/inactivos']['get'] = 'buses/inactivos';//Lista los buses de la tabla que están inactivos
+$route['buses/(:num)']['get'] = 'buses/find/$1';//Lista un bus pasando su ID
+$route['buses']['post'] = 'buses';//Inserta un bus
+$route['buses/update']['post'] = 'buses/update';//Actualiza los datos de un bus
+$route['buses/setEstado']['post'] = 'buses/setEstado';//Itera el estado del bus entre activo e inactivo
 
 //--------------------------------------------------------------------------------------------------------
 
 //Routes para boletos del WSAppFlota
 $route['boletos']['get'] = 'boletos';
 $route['boletos/(:num)']['get'] = 'boletos/find/$1';
-$route['boletos']['post'] = 'boletos/index';
+$route['boletos']['post'] = 'boletos';
 $route['boletos']['post'] = 'boletos/ruta';
 $route['boletos']['post'] = 'boletos/compras';
 //$route['boletos/(:num)']['put'] = 'boletos/index/$1';
-//$route['boletos/(:num)']['delete'] = 'boletos/index/$1';
 
 //Routes para rutas del WSAppFlota
 $route['rutas']['get'] = 'rutas';
