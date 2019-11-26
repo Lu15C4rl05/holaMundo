@@ -72,47 +72,49 @@ class Rutas extends REST_Controller {
 		}
 	}
 
+	//Método de inserción de una ruta
 	public function index_post(){
 		$Data = array();
-		$Data['ID_RUTA'] = $this->post('ID_RUTA');
+		$Data['ID_BUS'] = $this->post('ID_BUS');
 		$Data['ID_CIUDAD_INICIO'] = $this->post('ID_CIUDAD_INICIO');
 		$Data['ID_CIUDAD_DESTINO'] = $this->post('ID_CIUDAD_DESTINO');
+		$Data['ID_IMG'] = $this->rutas_model->getIdImg($Data['ID_CIUDAD_DESTINO']);
 		$Data['ID_HORARIO'] = $this->post('ID_HORARIO');
 		$Data['COSTO_RUTA'] = $this->post('COSTO_RUTA');
+		// $Data['COSTO_RUTA'] = $this->rutas_model->asignarCosto($Data['ID_CIUDAD_INICIO'],$Data['ID_CIUDAD_DESTINO']);
 		$insert = $this->rutas_model->save($Data);
 		if($insert===false){
-				$this->response("Por favor intentelo de nuevo.", REST_Controller::HTTP_OK);
+			$this->response("La ruta no se insertó. Revise los parámetros e intente de nuevo.", 200);
 		} else {
-			$this->response([
-				'status' => TRUE,
-				'message' => 'Ingreso satisfactorio.'
-			], REST_Controller::HTTP_OK);
+			$this->response(['message' => 'Ingreso satisfactorio.'], 200);
 		}
 	}
 
-	public function index2_post(){
-		$id = $this->post('ID_RUTA');
+	//Método de actualización de una ruta
+	public function update_post(){
 		$Data = array();
+		$Data['ID_RUTA'] = $this->post('ID_RUTA');
+		$Data['ID_BUS'] = $this->post('ID_BUS');
 		$Data['ID_CIUDAD_INICIO'] = $this->post('ID_CIUDAD_INICIO');
 		$Data['ID_CIUDAD_DESTINO'] = $this->post('ID_CIUDAD_DESTINO');
-		$Data['ID_HORARIO'] = $this->post('ID_HORARIO');
+		$Data['ID_IMG'] = $this->rutas_model->getIdImg($Data['ID_CIUDAD_DESTINO']);
+		$Data['ID_HORARIO'] = $this->rutas_model->getIdHor($this->post('ID_HORARIO'));
 		$Data['COSTO_RUTA'] = $this->post('COSTO_RUTA');
-		$update = $this->rutas_model->updat($Data);
+		// $Data['COSTO_RUTA'] = $this->rutas_model->asignarCosto($Data['ID_CIUDAD_INICIO'],$Data['ID_CIUDAD_DESTINO']);
+		$update = $this->rutas_model->update($Data);
 		if($update){
-			$this->response([
-				'status' => TRUE,
-				'message' => 'Actualizacion satisfactoria.'
-			], REST_Controller::HTTP_OK);
+			$this->response(['message' => 'Actualizacion satisfactoria.'], 200);
 		}else{
-			$this->response("Por favor intentelo de nuevo.", REST_Controller::HTTP_OK);
+			$this->response("La ruta no se actualizó. Revise los parámetros e intente de nuevo.", 200);
 		}
 	}
 
+	//Método que obtiene las ciudades origen de todas las rutas
 	public function ciudadesOrigen_get(){
 		$ciudades = $this->rutas_model->getCiudadesOrigen();
 
 		if (!is_null($ciudades)) {
-			$this->response(array('response' => $ciudades), 200);
+			$this->response($ciudades, 200);
 		} else {
 			$this->response(array('error' => 'No existen ciudades de origen, cree una ruta.'), 200);
 		}
