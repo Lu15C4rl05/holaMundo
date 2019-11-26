@@ -68,7 +68,7 @@ class Rutas extends REST_Controller {
 		if(!is_null($ruta)){
 			$this->response(array('response' => $ruta), 200);
 		} else {
-			$this->response(array('error' => 'Ruta no encontrado'), 200);
+			$this->response(array('error' => 'Aún no se han vendido boletos.'), 200);
 		}
 	}
 
@@ -79,7 +79,7 @@ class Rutas extends REST_Controller {
 		$Data['ID_CIUDAD_INICIO'] = $this->post('ID_CIUDAD_INICIO');
 		$Data['ID_CIUDAD_DESTINO'] = $this->post('ID_CIUDAD_DESTINO');
 		$Data['ID_IMG'] = $this->rutas_model->getIdImg($Data['ID_CIUDAD_DESTINO']);
-		$Data['ID_HORARIO'] = $this->post('ID_HORARIO');
+		$Data['ID_HORARIO'] = $this->rutas_model->getIdHor($this->post('ID_HORARIO'));
 		$Data['COSTO_RUTA'] = $this->post('COSTO_RUTA');
 		// $Data['COSTO_RUTA'] = $this->rutas_model->asignarCosto($Data['ID_CIUDAD_INICIO'],$Data['ID_CIUDAD_DESTINO']);
 		$insert = $this->rutas_model->save($Data);
