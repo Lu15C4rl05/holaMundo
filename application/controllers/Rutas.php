@@ -114,7 +114,7 @@ class Rutas extends REST_Controller {
 		$ciudades = $this->rutas_model->getCiudadesOrigen();
 
 		if (!is_null($ciudades)) {
-			$this->response($ciudades, 200);
+			$this->response(array('response' => $ciudades), 200);
 		} else {
 			$this->response(array('error' => 'No existen ciudades de origen, cree una ruta.'), 200);
 		}
