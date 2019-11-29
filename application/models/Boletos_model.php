@@ -17,9 +17,8 @@ class Boletos_model extends CI_Model{
 			return null;
 		}
 
-		$query = $this->db->query("
-			SELECT  bol.ID_BOLETO, bus.NUMERO_BUS, CONCAT(cii.NOMBRE_CIUDAD,'-',cio.NOMBRE_CIUDAD) AS RUTA,
-		CONCAT(usu.APELLIDO_USU,' ',usu.NOMBRE_USU) as USUARIO, bol.NUMPERSONAS_BOLETO AS ASIENTOS
+		$query = $this->db->query("SELECT  bol.ID_BOLETO, bus.NUMERO_BUS, CONCAT(cii.NOMBRE_CIUDAD,'-',cio.NOMBRE_CIUDAD) AS RUTA,
+		CONCAT(usu.APELLIDO_USU,' ',usu.NOMBRE_USU) as USUARIO, bus.ASIENTOS_DIS_BUS AS ASIENTOS
 			FROM tbl_boleto bol
 			inner join tbl_bus bus on bol.ID_BUS=bus.ID_BUS
 			inner join tbl_ruta ru on bol.ID_RUTA= ru.ID_RUTA

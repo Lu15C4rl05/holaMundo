@@ -25,9 +25,9 @@ class Buses_model extends CI_Model
         // return $query->result();
     }
 
-    public function save($bus = array())
+    public function save($bus)
     {
-        $this->db->insert('tbl_bus', $bus);
+        $this->db->query('insert into tbl_bus (ID_COND,NUMERO_BUS,ASIENTOS_BUS,DOS_PISOS_BUS) values ('.$bus['ID_COND'].','.$bus['NUMERO_BUS'].','.$bus['ASIENTOS_BUS'].','.$bus['DOS_PISOS_BUS'].')');
         if ($this->db->affected_rows() == 1)
             return true;
         return false;
