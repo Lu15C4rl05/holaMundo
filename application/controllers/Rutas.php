@@ -14,51 +14,51 @@ class Rutas extends REST_Controller {
 		$rutas = $this->rutas_model->get();
 
 		if (!is_null($rutas)) {
-			$this->response(array($rutas,'status' => 200), 200);
+			$this->response(array($rutas), 200);
 		} else {
-			$this->response(array('error' => 'No existen rutas en la base de datos', 'status' => 400), 200);
+			$this->response(array('error' => 'No existen rutas en la base de datos'), 200);
 		}
 	}
 
 	public function find_get($ciudad_in,$ciudad_out){
 		if(!$ciudad_in || !$ciudad_out){
-			$this->response(array('error' => 'Ruta no encontrada', 'status' => 400), 200);
+			$this->response(array('error' => 'Ruta no encontrada'), 200);
 		}
 
 		$ruta = $this->rutas_model->get($ciudad_in,$ciudad_out);
 
 		if(!is_null($ruta)){
-			$this->response(array($ruta, 'status' => 200), 200);
+			$this->response(array($ruta), 200);
 		} else {
-			$this->response(array('error' => 'Ruta no encontrada', 'status' => 400), 200);
+			$this->response(array('error' => 'Ruta no encontrada'), 200);
 		}
 	}
 
 	public function findD_get($ciudad_in){
 		if(!$ciudad_in){
-			$this->response(array('error' => 'No existen destinos', 'status' => 400), 200);
+			$this->response(array('error' => 'No existen destinos'), 200);
 		}
 
 		$ruta = $this->rutas_model->get($ciudad_in);
 
 		if(!is_null($ruta)){
-			$this->response(array($ruta, 'status' => 200), 200);
+			$this->response(array($ruta), 200);
 		} else {
-			$this->response(array('error' => 'Ruta no encontrada', 'status' => 400), 200);
+			$this->response(array('error' => 'Ruta no encontrada'), 200);
 		}
 	}
 
 	public function findh_get($ciudad_in,$ciudad_out,$fecha){
 		if(!$ciudad_in || !$ciudad_out || !$fecha){
-			$this->response(array('error' => 'Horario no encontrado', 'status' => 400), 200);
+			$this->response(array('error' => 'Horario no encontrado'), 200);
 		}
 
 		$ruta = $this->rutas_model->get($ciudad_in,$ciudad_out,$fecha);
 
 		if(!is_null($ruta)){
-			$this->response(array('response' => $ruta, 'status' => 200), 200);
+			$this->response(array('response' => $ruta), 200);
 		} else {
-			$this->response(array('error' => 'Ruta no encontrada', 'status' => 400), 200);
+			$this->response(array('error' => 'Ruta no encontrada'), 200);
 		}
 	}
 
@@ -66,9 +66,9 @@ class Rutas extends REST_Controller {
 		$ruta = $this->rutas_model->getimg();
 
 		if(!is_null($ruta)){
-			$this->response(array('response' => $ruta, 'status' => 200), 200);
+			$this->response(array('response' => $ruta), 200);
 		} else {
-			$this->response(array('error' => 'Aún no se han vendido boletos.', 'status' => 400), 200);
+			$this->response(array('error' => 'Aún no se han vendido boletos.'), 200);
 		}
 	}
 
@@ -114,9 +114,9 @@ class Rutas extends REST_Controller {
 		$ciudades = $this->rutas_model->getCiudadesOrigen();
 
 		if (!is_null($ciudades)) {
-			$this->response(array($ciudades,'status' => 200), 200);
+			$this->response(array($ciudades), 200);
 		} else {
-			$this->response(array('error' => 'No existen ciudades de origen, cree una ruta.','status' => 400), 200);
+			$this->response(array('error' => 'No existen ciudades de origen, cree una ruta.'), 200);
 		}
 	}
 

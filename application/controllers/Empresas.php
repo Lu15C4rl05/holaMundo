@@ -17,24 +17,24 @@ class Empresas extends REST_Controller
 		$empresas = $this->empresas_model->get();
 
 		if (!is_null($empresas)) {
-			$this->response(array($empresas,'status' => 200),200);
+			$this->response(array($empresas),200);
 		} else {
-			$this->response(array('error' => 'No existen cooperativas de transporte registradas en la base de datos','status' => 400), 200);
+			$this->response(array('error' => 'No existen cooperativas de transporte registradas en la base de datos'), 200);
 		}
 	}
 
 	public function find_get($id)
 	{
 		if (!$id) {
-			$this->response(null, 200);
+			$this->response(array('error' => 'IdCooperativa vacío.'), 200);
 		}
 
 		$empresa = $this->empresas_model->get($id);
 
 		if (!is_null($empresa)) {
-			$this->response(array('response' => $empresa, 'status' => 200), 200);
+			$this->response(array('response' => $empresa), 200);
 		} else {
-			$this->response(array('error' => 'Coop. de transporte no encontrada', 'status' => 400), 200);
+			$this->response(array('error' => 'Coop. de transporte no encontrada'), 200);
 		}
 	}
 

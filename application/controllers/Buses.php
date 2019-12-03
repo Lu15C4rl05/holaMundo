@@ -17,9 +17,9 @@ class Buses extends REST_Controller
     {
         $buses = $this->buses_model->get();
         if (!is_null($buses)) {
-            $this->response(array($buses,'status' => 200), 200);
+            $this->response(array($buses), 200);
         } else {
-            $this->response(array('error' => 'No existen buses en la base de datos','status' => 400), 200);
+            $this->response(array('error' => 'No existen buses en la base de datos'), 200);
         }
     }
 
@@ -27,15 +27,15 @@ class Buses extends REST_Controller
     public function find_get($id)
     {
         if (!$id) {
-            $this->response(array('error' => 'null', 400), 200);
+            $this->response(array('error' => 'Parámetro IdBus vacío.'), 200);
         }
 
         $bus = $this->buses_model->get($id);
 
         if (!is_null($bus)) {
-            $this->response(array($bus,'status' => 200), 200);
+            $this->response(array($bus), 200);
         } else {
-            $this->response(array('error' => 'Bus no encontrado','status' => 400), 200);
+            $this->response(array('error' => 'Bus no encontrado'), 200);
         }
     }
 

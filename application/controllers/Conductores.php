@@ -20,9 +20,9 @@ class Conductores extends REST_Controller
 		$conductores = $this->conductores_model->get();
 
 		if (!is_null($conductores)) {
-			$this->response(array($conductores,'status' => 200), 200);
+			$this->response(array($conductores), 200);
 		} else {
-			$this->response(array('error' => 'No existen conductores en la base de datos', 'status' => 400), 200);
+			$this->response(array('error' => 'No existen conductores en la base de datos'), 200);
 		}
 	}
 
@@ -30,15 +30,15 @@ class Conductores extends REST_Controller
 	public function find_get($id)
 	{
 		if (!$id) {
-			$this->response(null, 200);
+			$this->response(array('error' => 'IdConductor vacío.'), 200);
 		}
 
 		$conductor = $this->conductores_model->get($id);
 
 		if (!is_null($conductor)) {
-			$this->response(array($conductor,'status' => 200), 200);
+			$this->response(array($conductor), 200);
 		} else {
-			$this->response(array('error' => 'Conductor no encontrado','status' => 400), 200);
+			$this->response(array('error' => 'Conductor no encontrado'), 200);
 		}
 	}
 
@@ -145,7 +145,6 @@ class Conductores extends REST_Controller
 
 	public function inactivos_get()
 	{
-
 		return $this->response($this->conductores_model->getInactiveDrivers());
 	}
 

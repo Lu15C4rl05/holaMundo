@@ -14,24 +14,24 @@ class Ciudades extends REST_Controller {
 		$ciudades = $this->ciudades_model->get();
 
 		if (!is_null($ciudades)) {
-			$this->response(array($ciudades, 'status' => 200), 200);
+			$this->response(array($ciudades), 200);
 		} else {
-			$this->response(array('error' => 'No existen ciudades en la base de datos', 'status' => 400), 200);
+			$this->response(array('error' => 'No existen ciudades en la base de datos'), 200);
 		}
 	}
 
 	//Método que devuelve un registro de las ciudades, mediante su ID
 	public function find_get($id){
 		if(!$id){
-			$this->response(array('error' => 'null', 400), 200);
+			$this->response(array('error' => 'null'), 200);
 		}
 
 		$ciudad = $this->ciudades_model->get($id);
 
 		if(!is_null($ciudad)){
-			$this->response(array($ciudad, 'status' => 200), 200);
+			$this->response(array($ciudad), 200);
 		} else {
-			$this->response(array('error' => 'Ciudad no encontrada', 'status' => 400), 200);
+			$this->response(array('error' => 'Ciudad no encontrada'), 200);
 		}
 	}
 
