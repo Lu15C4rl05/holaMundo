@@ -17,9 +17,9 @@ class Buses extends REST_Controller
     {
         $buses = $this->buses_model->get();
         if (!is_null($buses)) {
-            $this->response($buses, 200);
+            $this->response(array($buses,'status' => 200), 200);
         } else {
-            $this->response(array('error' => 'No existen buses en la base de datos'), 200);
+            $this->response(array('error' => 'No existen buses en la base de datos','status' => 400), 200);
         }
     }
 
@@ -27,15 +27,15 @@ class Buses extends REST_Controller
     public function find_get($id)
     {
         if (!$id) {
-            $this->response(null, 200);
+            $this->response(array('error' => 'null', 400), 200);
         }
 
         $bus = $this->buses_model->get($id);
 
         if (!is_null($bus)) {
-            $this->response(array('response' => $bus), 200);
+            $this->response(array($bus,'status' => 200), 200);
         } else {
-            $this->response(array('error' => 'Bus no encontrado'), 200);
+            $this->response(array('error' => 'Bus no encontrado','status' => 400), 200);
         }
     }
 
@@ -50,18 +50,21 @@ class Buses extends REST_Controller
         $bus['ID_EMPRESA'] = $this->buses_model->getCoopFromCond($bus['ID_COND']);
         $existe = $this->buses_model->busExists($bus);
         if ($existe)
-            return $this->response([
-                'msg' => 'No se pudo insertar. El número de bus ingresado para la cooperativa actual ya ha sido ingresado.'
-            ], 200);
+            return $this->response(array(
+                'message' => 'No se pudo insertar. El número de bus ingresado para la cooperativa actual ya ha sido ingresado.',
+                'status' => 400
+            ), 200);
         $response = $this->buses_model->save($bus);
         if (!$response)
-            return $this->response([
-                'msg' => 'No se pudo insertar. Revise los parámetros ingresados.'
-            ], 200);
+            return $this->response(array(
+                'message' => 'No se pudo insertar. Revise los parámetros ingresados.',
+                'status' => 400
+            ), 200);
 
-        return $this->response([
-            'msg' => 'Elemento insertado correctamente.'
-        ], 200);
+        return $this->response(array(
+            'message' => 'Elemento insertado correctamente.',
+            'status' => 200
+        ), 200);
     }
 
     //Método de actualización de un bus
@@ -75,11 +78,8 @@ class Buses extends REST_Controller
         $bus['DOS_PISOS_BUS'] = $_POST['DOS_PISOS_BUS'];
         $response = $this->buses_model->update($bus);
         if (!$response)
-            return $this->response(['status' => 200, 'msg' => 'No se pudo actualizar'], 200);
-
-        return $this->response([
-            'msg' => 'Bus actualizado correctamente'
-        ], 200);
+            return $this->response(array('status' => 400, 'message' => 'No se pudo actualizar'), 200);
+        return $this->response(array('message' => 'Bus actualizado correctamente','status' => 200), 200);
     }
 
     //Itera el estado del bus entre activo e inactivo
@@ -89,16 +89,17 @@ class Buses extends REST_Controller
         $estado_bus = $this->post('ESTADO_BUS');
         $bus = $this->buses_model->get($id_bus);
         if ($bus == null) {
-            return $this->response([
-                'msg' => 'Bus no encontrado'
-            ], 200);
+            return $this->response(array(
+                'message' => 'Bus no encontrado',
+                'status' => 400
+            ), 200);
         } else {
             if($estado_bus){
             $response = $this->buses_model->inactivarBus($id_bus);
-            return $this->response(['response' => 'Bus ha cambiado a inactivo.'], 200);
+            return $this->response(array('message' => 'Bus ha cambiado a inactivo.','status' => 200), 200);
             } else {
                 $response = $this->buses_model->activarBus($id_bus);
-                return $this->response(['response' => 'Bus ha cambiado a activo.'], 200);
+                return $this->response(array('message' => 'Bus ha cambiado a activo.','status' => 200), 200);
             }
         }
     }

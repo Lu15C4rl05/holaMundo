@@ -14,24 +14,24 @@ class Ciudades extends REST_Controller {
 		$ciudades = $this->ciudades_model->get();
 
 		if (!is_null($ciudades)) {
-			$this->response(array('response' => $ciudades), 200);
+			$this->response(array($ciudades, 'status' => 200), 200);
 		} else {
-			$this->response(array('error' => 'No existen ciudades en la base de datos'), 200);
+			$this->response(array('error' => 'No existen ciudades en la base de datos', 'status' => 400), 200);
 		}
 	}
 
 	//Método que devuelve un registro de las ciudades, mediante su ID
 	public function find_get($id){
 		if(!$id){
-			$this->response(null, 200);
+			$this->response(array('error' => 'null', 400), 200);
 		}
 
 		$ciudad = $this->ciudades_model->get($id);
 
 		if(!is_null($ciudad)){
-			$this->response(array('response' => $ciudad), 200);
+			$this->response(array($ciudad, 'status' => 200), 200);
 		} else {
-			$this->response(array('error' => 'Ciudad no encontrada'), 200);
+			$this->response(array('error' => 'Ciudad no encontrada', 'status' => 400), 200);
 		}
 	}
 
@@ -41,15 +41,15 @@ class Ciudades extends REST_Controller {
 		$ciudad['NOMBRE_CIUDAD'] = $this->post('NOMBRE_CIUDAD');
 		$isinserted = $this->ciudades_model->save($ciudad);
 		if($isinserted===false){
-			$this->response([
-				'status' => FALSE,
-				'mensaje' => 'No se inserto ningun dato, revise los parámetros.'
-			], REST_Controller::HTTP_OK);
+			$this->response(array(
+				'status' => 400,
+				'message' => 'No se inserto ningun dato, revise los parámetros.', 'status' => 400
+			), 200);
 		} else {
-			$this->response([
-				'status' => TRUE,
-				'mensaje' => 'Ingreso satisfactorio.'
-			], REST_Controller::HTTP_OK);
+			$this->response(array(
+				'status' => 200,
+				'message' => 'Ingreso satisfactorio.'
+			), 200);
 		}
 	}
 
@@ -60,16 +60,16 @@ class Ciudades extends REST_Controller {
 		$ciudad['NOMBRE_CIUDAD'] = $this->post('NOMBRE_CIUDAD');
 		$result = $this->ciudades_model->actualizarCiudad($ciudad);
         if($result){
-            $this->response([
-            	'status' => TRUE,
-				'mensaje' => 'Actualización de ciudad correcta.'
-			], REST_Controller::HTTP_OK);
+            $this->response(array(
+            	'status' => 200,
+				'message' => 'Actualización de ciudad correcta.'
+			), 200);
         }
         else {
-            $this->response([
-            	'status' => FALSE,
-				'mensaje' => 'La ciudad no se actualizó.'
-			], REST_Controller::HTTP_OK);
+            $this->response(array(
+            	'status' => 400,
+				'message' => 'La ciudad no se actualizó.'
+			), 200);
         }
 	}
 

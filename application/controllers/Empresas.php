@@ -17,9 +17,9 @@ class Empresas extends REST_Controller
 		$empresas = $this->empresas_model->get();
 
 		if (!is_null($empresas)) {
-			$this->response($empresas);
+			$this->response(array($empresas,'status' => 200),200);
 		} else {
-			$this->response(array('error' => 'No existen cooperativas de transporte registradas en la base de datos'), 200);
+			$this->response(array('error' => 'No existen cooperativas de transporte registradas en la base de datos','status' => 400), 200);
 		}
 	}
 
@@ -32,9 +32,9 @@ class Empresas extends REST_Controller
 		$empresa = $this->empresas_model->get($id);
 
 		if (!is_null($empresa)) {
-			$this->response(array('response' => $empresa), 200);
+			$this->response(array('response' => $empresa, 'status' => 200), 200);
 		} else {
-			$this->response(array('error' => 'Coop. de transporte no encontrada'), 200);
+			$this->response(array('error' => 'Coop. de transporte no encontrada', 'status' => 400), 200);
 		}
 	}
 
@@ -44,10 +44,10 @@ class Empresas extends REST_Controller
 		$empresa['NOMBRE_EMPRESA'] = $this->post('NOMBRE_EMPRESA');
 		$isinserted = $this->empresas_model->save($empresa);
 		if ($isinserted === false) {
-			$this->response("Por favor intentelo de nuevo.", REST_Controller::HTTP_OK);
+			$this->response(array('error' => 'Por favor intentelo de nuevo.','status' => 400), 200);
 		} else {
 			$this->response([
-				'status' => TRUE,
+				'status' => 200,
 				'message' => 'Ingreso satisfactorio.'
 			], REST_Controller::HTTP_OK);
 		}
@@ -60,13 +60,9 @@ class Empresas extends REST_Controller
 		$empresa['NOMBRE_EMPRESA'] = $this->post('NOMBRE_EMPRESA');
 		$result = $this->empresas_model->update($empresa);
 		if ($result) {
-			$this->response([
-				'mensaje' => 'Actualización de empresa correcta.'
-			], REST_Controller::HTTP_OK);
+			$this->response(array('message' => 'Actualización de empresa correcta.','status' => 200), 200);
 		} else {
-			$this->response([
-				'mensaje' => 'La empresa no se actualizó.'
-			], REST_Controller::HTTP_OK);
+			$this->response(array('error' => 'La empresa no se actualizó.', 'status' => 400), 200);
 		}
 	}
 }//end class

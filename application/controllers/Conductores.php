@@ -20,9 +20,9 @@ class Conductores extends REST_Controller
 		$conductores = $this->conductores_model->get();
 
 		if (!is_null($conductores)) {
-			$this->response($conductores, 200);
+			$this->response(array($conductores,'status' => 200), 200);
 		} else {
-			$this->response(array('error' => 'No existen conductores en la base de datos'), 200);
+			$this->response(array('error' => 'No existen conductores en la base de datos', 'status' => 400), 200);
 		}
 	}
 
@@ -36,9 +36,9 @@ class Conductores extends REST_Controller
 		$conductor = $this->conductores_model->get($id);
 
 		if (!is_null($conductor)) {
-			$this->response(array('response' => $conductor), 200);
+			$this->response(array($conductor,'status' => 200), 200);
 		} else {
-			$this->response(array('error' => 'Conductor no encontrado'), 200);
+			$this->response(array('error' => 'Conductor no encontrado','status' => 400), 200);
 		}
 	}
 
@@ -54,10 +54,10 @@ class Conductores extends REST_Controller
 				$foto = $this->cloudinary_files->saveFile($file, $public_id);
 				$foto = $foto['secure_url'];
 			} catch (Exception $e) {
-				return $this->response([
+				return $this->response(array(
 					'status' => 400,
-					'mensaje' => 'Error en ingreso de imagen ' + $e
-				], REST_Controller::HTTP_BAD_REQUEST);
+					'message' => 'Error en ingreso de imagen ' + $e
+				), 200);
 			}
 		}
 
@@ -74,16 +74,16 @@ class Conductores extends REST_Controller
 		$isinserted = $this->conductores_model->save($conductor);
 
 		if ($isinserted === false) {
-			$this->response([
-				'status' => FALSE,
-				'mensaje' => 'No se inserto ningun dato, revise los parámetros.',
+			$this->response(array(
+				'status' => 400,
+				'message' => 'No se inserto ningun dato, revise los parámetros.',
 				'detalles' => 'Los campos de teléfono y correo pueden ser nulos. Los campos de cédula y correo son únicos.'
-			], 200);
+			), 200);
 		} else {
-			$this->response([
+			$this->response(array(
 				'status' => 200,
-				'mensaje' => 'Ingreso satisfactorio.'
-			], REST_Controller::HTTP_OK);
+				'message' => 'Ingreso satisfactorio.'
+			), 200);
 		}
 	}
 
@@ -98,10 +98,10 @@ class Conductores extends REST_Controller
 				$foto = $this->cloudinary_files->saveFile($file, $public_id);
 				$foto = $foto['secure_url'];
 			} catch (Exception $e) {
-				return $this->response([
+				return $this->response(array(
 					'status' => 400,
-					'mensaje' => 'Error en ingreso de imagen ' + $e
-				], REST_Controller::HTTP_BAD_REQUEST);
+					'message' => 'Error en ingreso de imagen ' + $e
+				), 200);
 			}
 		}
 		$conductor = array();
@@ -114,37 +114,32 @@ class Conductores extends REST_Controller
 
 		$result = $this->conductores_model->actualizarConductor($conductor);
 		if ($result) {
-			$this->response([
+			$this->response(array(
 				'status' => 200,
-				'mensaje' => 'Actualización de chofer correcta.'
-			], REST_Controller::HTTP_OK);
+				'message' => 'Actualización de chofer correcta.'
+			), 200);
 		} else {
-			$this->response([
-				'status' => FALSE,
-				'mensaje' => 'El chofer no se actualizó.'
-			], REST_Controller::HTTP_BAD_REQUEST);
+			$this->response(array(
+				'status' => 400,
+				'message' => 'El chofer no se actualizó.'
+			), 200);
 		}
 	}
-
-
 
 	public function delete_put()
 	{
 		$id_cond = $this->put('id_cond'); //desde json body
 		$user_resp = $this->conductores_model->get($id_cond);
 		if ($user_resp == null) {
-			$status = 400;
-			// $status = parent::Htttp;
-			return $this->response(['msg' => 'Usuario no encontrado', 'status' => $status], $status);
+			return $this->response(array('message' => 'Usuario no encontrado', 'status' => 400), 200);
 		}
 
-		// print_r($user);
 		$response = $this->conductores_model->deleteDriver($id_cond);
-		return $this->response([
-			'response' => $response,
+		return $this->response(array(
+			$response,
 			'usuario' => $id_cond,
 			'status' => 200
-		], 200);
+		), 200);
 	}
 
 
@@ -157,18 +152,14 @@ class Conductores extends REST_Controller
 	public function update_inactivos_put()
 	{
 		$id_cond = $this->put('id_cond'); //desde json body
-		// print_r($username);
 		$user_resp = $this->conductores_model->get($id_cond);
 		if ($user_resp == null) {
-			$status = 400;
-			// $status = parent::Htttp;
-			return $this->response(['msg' => 'Usuario no encontrado', 'status' => $status], $status);
+			return $this->response(array('message' => 'Usuario no encontrado', 'status' => 400), 200);
 		}
 
-		// print_r($user);
 		$response = $this->conductores_model->updateDriverToActive($id_cond);
 		return $this->response([
-			'response' => $response,
+			$response,
 			'usuario' => $id_cond,
 			'status' => 200
 		], 200);
