@@ -34,17 +34,18 @@ class Rutas extends REST_Controller {
 		}
 	}
 
-	public function findD_get($ciudad_in){
+	public function findD_post(){
+		$ciudad_in = $this->post('CIUDAD_IN');
 		if(!$ciudad_in){
-			$this->response(array('error' => 'No existen destinos'), 200);
+			$this->response(array('error' => 'El parámetro es vacío', 'status' => 400), 200);
 		}
 
 		$ruta = $this->rutas_model->get($ciudad_in);
 
 		if(!is_null($ruta)){
-			$this->response(array('response' => $ruta), 200);
+			$this->response(array('response' => $ruta, 'status' => 200), 200);
 		} else {
-			$this->response(array('error' => 'Ruta no encontrada'), 200);
+			$this->response(array('error' => 'Ruta no encontrada', 'status' => 400), 200);
 		}
 	}
 

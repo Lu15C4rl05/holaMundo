@@ -94,7 +94,7 @@ $route['buses/setEstado']['post'] = 'buses/setEstado';//Itera el estado del bus 
 
 //Routes para rutas del WSAppFlota
 $route['rutas']['get'] = 'rutas';//Lista todas las rutas de la tabla.
-$route['rutas/(:any)']['get'] = 'rutas/findD/$1';//Muestra las ciudades destino que tiene la ciudad origen.
+$route['rutasDestino']['post'] = 'rutas/findD';//Muestra las ciudades destino que tiene la ciudad origen.
 $route['rutas/(:any)/(:any)']['get'] = 'rutas/find/$1/$2';//Muestra las horas de salida de la ruta entre las dos ciudades.
 $route['rutas/(:any)/(:any)/(:any)']['get'] = 'rutas/findh/$1/$2/$3';//Muestra las horas de salida de la ruta entre las dos ciudades y en la fecha especificada.
 $route['rutasimg']['get'] = 'rutas/findimg';//Obtiene la ruta "ORIGEN - DESTINO", la imagen de la ciudad destino y el número de boletos vendido de cada ruta. Esta función se utiliza para el apartado de "RUTAS MÁS VENDIDAS" en la app.
@@ -102,15 +102,17 @@ $route['rutas']['post'] = 'rutas';//Inserta una ruta
 $route['rutas/update']['post'] = 'rutas/update';//Actualiza los datos de una ruta
 $route['rutasOrigen']['get'] = 'rutas/ciudadesOrigen';//Lista la(s) ciudades origen de las rutas activas
 
-//--------------------------------------------------------------------------------------------------------
-
 //Routes para boletos del WSAppFlota
 $route['boletos']['get'] = 'boletos';
-$route['boletos/(:num)']['get'] = 'boletos/find/$1';
+$route['boletos/(:num)']['get'] = 'boletos/porIdBoleto/$1';
+$route['boletos/empresa/(:num)']['get'] = 'boletos/porIdEmpresa/$1';
+$route['boletos/ocupados']['post'] = 'boletos/asientosOcupados';
 $route['boletos']['post'] = 'boletos';
 $route['boletos']['post'] = 'boletos/ruta';
 $route['boletos']['post'] = 'boletos/compras';
 //$route['boletos/(:num)']['put'] = 'boletos/index/$1';
+
+//--------------------------------------------------------------------------------------------------------
 
 /*
 | -------------------------------------------------------------------------
