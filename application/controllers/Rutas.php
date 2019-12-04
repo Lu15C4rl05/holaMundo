@@ -14,7 +14,7 @@ class Rutas extends REST_Controller {
 		$rutas = $this->rutas_model->get();
 
 		if (!is_null($rutas)) {
-			$this->response(array($rutas), 200);
+			$this->response(array('response' => $rutas), 200);
 		} else {
 			$this->response(array('error' => 'No existen rutas en la base de datos'), 200);
 		}
@@ -28,7 +28,7 @@ class Rutas extends REST_Controller {
 		$ruta = $this->rutas_model->get($ciudad_in,$ciudad_out);
 
 		if(!is_null($ruta)){
-			$this->response(array($ruta), 200);
+			$this->response(array('response' => $ruta), 200);
 		} else {
 			$this->response(array('error' => 'Ruta no encontrada'), 200);
 		}
@@ -42,7 +42,7 @@ class Rutas extends REST_Controller {
 		$ruta = $this->rutas_model->get($ciudad_in);
 
 		if(!is_null($ruta)){
-			$this->response(array($ruta), 200);
+			$this->response(array('response' => $ruta), 200);
 		} else {
 			$this->response(array('error' => 'Ruta no encontrada'), 200);
 		}
@@ -114,7 +114,7 @@ class Rutas extends REST_Controller {
 		$ciudades = $this->rutas_model->getCiudadesOrigen();
 
 		if (!is_null($ciudades)) {
-			$this->response(array($ciudades), 200);
+			$this->response(array('response' => $ciudades), 200);
 		} else {
 			$this->response(array('error' => 'No existen ciudades de origen, cree una ruta.'), 200);
 		}
