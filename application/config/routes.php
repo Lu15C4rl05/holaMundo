@@ -95,7 +95,7 @@ $route['buses/setEstado']['post'] = 'buses/setEstado';//Itera el estado del bus 
 //Routes para rutas del WSAppFlota
 $route['rutas']['get'] = 'rutas';//Lista todas las rutas de la tabla.
 $route['rutasDestino']['post'] = 'rutas/findD';//Muestra las ciudades destino que tiene la ciudad origen.
-$route['rutas/(:any)/(:any)']['get'] = 'rutas/find/$1/$2';//Muestra las horas de salida de la ruta entre las dos ciudades.
+$route['rutasInfo']['post'] = 'rutas/find';//Muestra las horas de salida de la ruta entre las dos ciudades.
 $route['rutas/(:any)/(:any)/(:any)']['get'] = 'rutas/findh/$1/$2/$3';//Muestra las horas de salida de la ruta entre las dos ciudades y en la fecha especificada.
 $route['rutasimg']['get'] = 'rutas/findimg';//Obtiene la ruta "ORIGEN - DESTINO", la imagen de la ciudad destino y el número de boletos vendido de cada ruta. Esta función se utiliza para el apartado de "RUTAS MÁS VENDIDAS" en la app.
 $route['rutas']['post'] = 'rutas';//Inserta una ruta

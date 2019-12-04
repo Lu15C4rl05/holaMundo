@@ -20,7 +20,9 @@ class Rutas extends REST_Controller {
 		}
 	}
 
-	public function find_get($ciudad_in,$ciudad_out){
+	public function find_post(){
+		$ciudad_in = $this->post('CIUDAD_IN');
+		$ciudad_out = $this->post('CIUDAD_OUT');
 		if(!$ciudad_in || !$ciudad_out){
 			$this->response(array('error' => 'Ruta no encontrada'), 200);
 		}
