@@ -51,7 +51,7 @@ class Rutas_model extends CI_Model{
 
 	//Obtiene las ciudades origen de las rutas existentes
 	public function getCiudadesOrigen(){
-		$query = $this->db->query("select distinct cii.NOMBRE_CIUDAD AS NOMBRE_CIUDAD from tbl_ruta ru
+		$query = $this->db->query("select distinct cii.ID_CIUDAD, cii.NOMBRE_CIUDAD from tbl_ruta ru
 			inner join tbl_ciudad cii on ru.ID_CIUDAD_INICIO= cii.ID_CIUDAD");
 		if($query->num_rows() > 0){
 			return $query->result_array();
