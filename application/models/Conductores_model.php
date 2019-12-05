@@ -7,14 +7,16 @@ class Conductores_model extends CI_Model
 	public function get($id = null)
 	{
 		if (!is_null($id)) {
-			$query = $this->db->select('*')->from('tbl_conductor')->where('ID_COND', $id)->get();
+			$query = $this->db->query("select c.ID_COND, c.ID_EMPRESA, c.CEDULA_COND, c.NOMBRE_COND, c.APELLIDO_COND, c.CORREO_COND, c.DIRECCION_COND, c.TELEFONO_COND,	c.ESTADO_COND, i.URL_IMAGEN as FOTO_COND from tbl_conductor c inner join tbl_img i on c.ID_IMG=i.ID_IMG
+				where ID_COND=".$id."");
 			if ($query->num_rows() === 1) {
 				return $query->row_array();
 			}
 			return null;
 		}
 
-		$query = $this->db->query("select * from tbl_conductor where ESTADO_COND=1");
+		$query = $this->db->query("select c.ID_COND, c.ID_EMPRESA, c.CEDULA_COND, c.NOMBRE_COND, c.APELLIDO_COND, c.CORREO_COND, c.DIRECCION_COND, c.TELEFONO_COND,	c.ESTADO_COND, i.URL_IMAGEN as FOTO_COND from tbl_conductor c inner join tbl_img i on c.ID_IMG=i.ID_IMG
+			where ESTADO_COND=1");
 
 		if ($query->num_rows() > 0) {
 			return $query->result_array();
