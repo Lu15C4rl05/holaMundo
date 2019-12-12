@@ -16,7 +16,7 @@ class Boletos extends REST_Controller {
 		if (!is_null($boletos)) {
 			$this->response(array('response' => $boletos), 200);
 		} else {
-			$this->response(array('error' => 'No existen boletos en la base de datos'), 200);
+			$this->response(array('error' => 'No existen boletos en la base de datos', 200));
 		}
 	}
 
@@ -37,21 +37,21 @@ class Boletos extends REST_Controller {
 	public function index_post()
 	{
 	    $Data = array();
-		$Data['ID_BUS'] = $this->post('ID_BUS');
 		$Data['ID_RUTA'] = $this->post('ID_RUTA');
 		$Data['ID_USU'] = $this->post('ID_USU');
-		$Data['FECHA_BOLETO'] = $this->post('FECHA_BOLETO');
 		$Data['QR_BOLETO'] = $this->post('QR_BOLETO');
 		$Data['FECHA_VIAJE'] = $this->post('FECHA_VIAJE');
 		$insert = $this->boletos_model->save($Data);
 		if($insert){
-			$this->response([
-				'mensaje' => 'El boleto se ha guardado correctamente en la BD.'
-			], REST_Controller::HTTP_OK);
+			$this->response(array(
+				'message' => 'El boleto se ha guardado correctamente en la BD.',
+				'status' => 200
+			), 200);
 		} else {
 			$this->response([
-				'mensaje' => 'El boleto no se guardo en la BD.'
-			], REST_Controller::HTTP_OK);
+				'message' => 'El boleto no se guardo en la BD.',
+				'status' => 400
+			], 200);
 		}
 	}
 
