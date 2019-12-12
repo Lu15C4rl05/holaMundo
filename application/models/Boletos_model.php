@@ -59,25 +59,40 @@ class Boletos_model extends CI_Model{
 	}
 
 	public function obtenerCompras($idUsu){
-		$query = $this->db->query('select
-			bo.FECHA_BOLETO as FECHA_COMPRA,
-			concat(cii.NOMBRE_CIUDAD," - ",cio.NOMBRE_CIUDAD) as RUTA,
-			date_format(bo.FECHA_VIAJE, "%d/%m/%Y") AS FECHA_SALIDA,
-			date_format(ho.HORA_SALIDA, "%k:%i:%s") AS HORA_SALIDA,
-			usu.CEDULA_USU AS CEDULA,
-			concat(usu.NOMBRE_USU," ",usu.APELLIDO_USU) as NOMBRES_USUARIO,
-			usu.CORREO_USU AS CORREO,
-			ru.COSTO_RUTA,
-			bo.QR_BOLETO
-		from tbl_boleto bo
-			inner join tbl_ruta ru on bo.ID_RUTA=ru.ID_RUTA
-            inner join tbl_horario ho on ru.ID_HORARIO=ho.ID_HORARIO
-    		inner join tbl_usuario usu on bo.ID_USU=usu.ID_USU
-    		inner join tbl_ciudad cii on ru.ID_CIUDAD_INICIO=cii.ID_CIUDAD
-    		inner join tbl_ciudad cio on ru.ID_CIUDAD_DESTINO=cio.ID_CIUDAD
-		where usu.ID_USU="'.$idUsu.'" and
-			bo.FECHA_VIAJE > NOW() - interval 5 hour
-		order by FECHA_COMPRA DESC');
+		$query = $this->db->query('select emp.NOMBRE_EMPRESA,
+			    bo.created_at AS FECHA_COMPRA,
+			    CONCAT(cii.NOMBRE_CIUDAD,
+			            " - ",
+			            cio.NOMBRE_CIUDAD) AS RUTA,
+			    DATE_FORMAT(bo.FECHA_VIAJE, "%d/%m/%Y") AS FECHA_SALIDA,
+			    DATE_FORMAT(ho.HORA_SALIDA, "%k:%i:%s") AS HORA_SALIDA,
+			    usu.CEDULA_USU AS CEDULA,
+			    CONCAT(usu.NOMBRE_USU," ", usu.APELLIDO_USU) AS NOMBRES_USUARIO,
+			    usu.CORREO_USU AS CORREO,
+			    ru.COSTO_RUTA,
+			    bo.QR_BOLETO
+			FROM
+			    tbl_boleto bo
+			        INNER JOIN
+			    tbl_ruta ru ON bo.ID_RUTA = ru.ID_RUTA
+			        INNER JOIN
+			    tbl_horario ho ON ru.ID_HORARIO = ho.ID_HORARIO
+			        INNER JOIN
+			    tbl_bus bus ON ru.ID_BUS=bus.ID_BUS    
+					INNER JOIN
+				tbl_conductor cond ON bus.ID_COND=cond.ID_COND
+			        INNER JOIN
+				tbl_empresa emp ON cond.ID_EMPRESA=emp.ID_EMPRESA
+			        INNER JOIN
+			    tbl_usuario usu ON bo.ID_USU = usu.ID_USU
+			        INNER JOIN
+			    tbl_ciudad cii ON ru.ID_CIUDAD_INICIO = cii.ID_CIUDAD
+			        INNER JOIN
+			    tbl_ciudad cio ON ru.ID_CIUDAD_DESTINO = cio.ID_CIUDAD
+			WHERE
+			    usu.ID_USU = "'.$idUsu.'"
+			        AND bo.FECHA_VIAJE > NOW() - INTERVAL 5 HOUR
+			ORDER BY FECHA_COMPRA DESC');
 
 		if($query->num_rows() > 0){
 			return $query->result_array();
