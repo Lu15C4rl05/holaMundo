@@ -108,8 +108,8 @@ $route['boletos/(:num)']['get'] = 'boletos/porIdBoleto/$1';
 $route['boletos/empresa/(:num)']['get'] = 'boletos/porIdEmpresa/$1';
 $route['boletos/ocupados']['post'] = 'boletos/asientosOcupados';
 $route['boletos']['post'] = 'boletos';
-$route['boletos']['post'] = 'boletos/ruta';
-$route['boletos']['post'] = 'boletos/compras';
+$route['boletosRuta']['post'] = 'boletos/ruta';
+$route['boletosCompras']['post'] = 'boletos/compras';
 //$route['boletos/(:num)']['put'] = 'boletos/index/$1';
 
 //--------------------------------------------------------------------------------------------------------
