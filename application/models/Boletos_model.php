@@ -93,7 +93,7 @@ class Boletos_model extends CI_Model{
 			WHERE
 			    usu.ID_USU = "'.$idUsu.'"
 			        AND bo.FECHA_VIAJE > NOW() - INTERVAL 5 HOUR
-			ORDER BY FECHA_COMPRA DESC');
+			ORDER BY created_at DESC');
 
 		if($query->num_rows() > 0){
 			return $query->result_array();
