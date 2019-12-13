@@ -60,6 +60,7 @@ class Boletos_model extends CI_Model{
 
 	public function obtenerCompras($idUsu){
 		$query = $this->db->query('select emp.NOMBRE_EMPRESA,
+				bus.NUMERO_BUS,
 			    bo.created_at AS FECHA_COMPRA,
 			    CONCAT(cii.NOMBRE_CIUDAD,
 			            " - ",
