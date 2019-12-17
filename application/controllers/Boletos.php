@@ -20,18 +20,46 @@ class Boletos extends REST_Controller {
 		}
 	}
 
-	public function find_get($id){
-		if(!$id){
-			$this->response(null, 200);
+	public function porIdBoleto_get($idBoleto){
+		if(!$idBoleto){
+			$this->response(array('error' => 'El parámetro está vacío, debe contener el Id del boleto.'), 200);
 		}
 
-		$boleto = $this->boletos_model->get($id);
+		$boleto = $this->boletos_model->get($idBoleto);
 
 		if(!is_null($boleto)){
 			$this->response(array('response' => $boleto), 200);
 		} else {
 			$this->response(array('error' => 'Boleto no encontrado'), 200);
 		}
+	}
+
+	public function porIdEmpresa_get($idEmpresa){
+		if(!$idEmpresa){
+			$this->response(array('error' => 'null'), 200);
+		}
+
+		$boletos = $this->boletos_model->getBoletosPorEmpresa($idEmpresa);
+
+		if(!is_null($boletos)){
+			$this->response(array($boletos), 200);
+		} else {
+			$this->response(array('error' => 'No hay boletos comprados para la cooperativa de transporte.'), 200);
+		}
+	}
+
+	public function asientosOcupados_post(){
+		$asientosDisp = $this->boletos_model->getAsientosOcupados($this->post('ID_RUTA'),$this->post('FECHA'));
+		if($asientosDisp != null){
+			$this->response(array(
+				'status' => 200,
+				'response' => $asientosDisp
+			), 200);
+		} 
+		$this->response([
+			'status' => 400,
+			'error' => 'El bus ya no tiene asientos disponibles en la ruta seleccionada o los parámetros son incorrectos.'
+		], 200);
 	}
 
 	public function index_post()
@@ -62,9 +90,9 @@ class Boletos extends REST_Controller {
 		$id_ruta = $this->boletos_model->obtenerRuta($ruta);
 
 		if (!is_null($id_ruta)) {
-			$this->response(array('response' => $id_ruta), 200);
+			$this->response(array('status' => 200,'response' => $id_ruta), 200);
 		} else {
-			$this->response(array('error' => 'La ruta especificada no existe.'), 200);
+			$this->response(array('status' => 400,'error' => 'La ruta especificada no existe.'), 200);
 		}
 	}
 
@@ -75,25 +103,15 @@ class Boletos extends REST_Controller {
 			$this->response([
 				'mensaje' => 'El usuario ingresado registra las siguientes compras.',
 				'response' => $existeIdUsu
-			], REST_Controller::HTTP_OK);
+			], 200);
 		} else {
 			$this->response([
 				'mensaje' => 'El usuario no regitra compras.'
-			], REST_Controller::HTTP_OK);
+			], 200);
 		}
 	}
 
-	public function index_delete($id){
-		if(!$id){
-			$this->response(null, 200);
-		}
+	public function delete_post($idBoleto){
 		
-		$delete = $this->boletos_model->delete($id);
-
-		if(!is_null($delete)){
-			$this->response(array('response' => 'Boleto eliminado correctamente.'), 200);
-		} else {
-			$this->response(array('error' => 'Algo ha fallado en el servidor. Acción no procesada'), 200);
-		}
 	}
 }
