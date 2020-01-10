@@ -20,7 +20,7 @@ class Conductores extends REST_Controller
 		$conductores = $this->conductores_model->get();
 
 		if (!is_null($conductores)) {
-			$this->response(array($conductores), 200);
+			$this->response($conductores, 200);
 		} else {
 			$this->response(array('error' => 'No existen conductores en la base de datos'), 200);
 		}
@@ -46,40 +46,44 @@ class Conductores extends REST_Controller
 	public function index_post()
 	{
 
-		$foto = '';
-		if (isset($_FILES['file'])) {
-			$file = $_FILES['file']['tmp_name'];
-			$public_id = $_POST['public_id'];
-			try {
-				$foto = $this->cloudinary_files->saveFile($file, $public_id);
-				$foto = $foto['secure_url'];
-			} catch (Exception $e) {
-				return $this->response(array(
-					'status' => 400,
-					'message' => 'Error en ingreso de imagen ' + $e
-				), 200);
-			}
-		}
-
 		$conductor = array();
 		$conductor['ID_EMPRESA'] = $_POST['ID_EMPRESA'];
 		$conductor['CEDULA_COND'] = $_POST['CEDULA_COND'];
 		$conductor['NOMBRE_COND'] = $_POST['NOMBRE_COND'];
 		$conductor['APELLIDO_COND'] = $_POST['APELLIDO_COND'];
-		$conductor['FOTO_COND'] = $foto;
 		$conductor['CORREO_COND'] = $_POST['CORREO_COND'];
 		$conductor['DIRECCION_COND'] = $_POST['DIRECCION_COND'];
 		$conductor['TELEFONO_COND'] = $_POST['TELEFONO_COND'];
 		$conductor['ESTADO_COND'] = $_POST['ESTADO_COND'];
-		$isinserted = $this->conductores_model->save($conductor);
+		$conductor['ID_IMG'] = $this->conductores_model->nullDriverId();
+		$response_driver = $this->conductores_model->save($conductor);
 
-		if ($isinserted === false) {
+		if (!$response_driver['IS_INSERTED']) {
 			$this->response(array(
 				'status' => 400,
 				'message' => 'No se inserto ningun dato, revise los parámetros.',
 				'detalles' => 'Los campos de teléfono y correo pueden ser nulos. Los campos de cédula y correo son únicos.'
 			), 200);
 		} else {
+			if (isset($_FILES['FILE'])) {
+				$imagen = array();
+				$file = $_FILES['FILE']['tmp_name'];
+				$public_id = 'driver/' . $_POST['CEDULA_COND'];
+				try {
+					$foto = $this->cloudinary_files->saveFile($file, $public_id);
+					$id_driver = $response_driver['ID_DRIVER'];
+					$imagen['ID_TIPO_IMG'] = $this->conductores_model->tipoImgDriverId();
+					$imagen['NOMBRE_IMG'] = $_POST['CEDULA_COND'];
+					$imagen['URL_IMAGEN'] = $foto['secure_url'];
+					$id_img = $this->conductores_model->saveImgDriver($imagen);
+					$this->conductores_model->update_id_img($id_driver, $id_img);
+				} catch (Exception $e) {
+					return $this->response(array(
+						'status' => 400,
+						'message' => 'No se pudo guardar la imagen ' + $e
+					), 200);
+				}
+			}
 			$this->response(array(
 				'status' => 200,
 				'message' => 'Ingreso satisfactorio.'
@@ -90,30 +94,38 @@ class Conductores extends REST_Controller
 	//Método de actualización de un conductor
 	public function update_post()
 	{
-		$foto = null;
-		if (isset($_FILES['file'])) {
-			$public_id = $_POST['public_id'];
-			$file = $_FILES['file']['tmp_name'];
-			try {
-				$foto = $this->cloudinary_files->saveFile($file, $public_id);
-				$foto = $foto['secure_url'];
-			} catch (Exception $e) {
-				return $this->response(array(
-					'status' => 400,
-					'message' => 'Error en ingreso de imagen ' + $e
-				), 200);
-			}
-		}
+
+
 		$conductor = array();
 		$conductor['ID_COND'] = $_POST['ID_COND'];
-		$conductor['FOTO_COND'] =  $foto;
 		$conductor['CORREO_COND'] = $_POST['CORREO_COND'];
 		$conductor['DIRECCION_COND'] = $_POST['DIRECCION_COND'];
 		$conductor['TELEFONO_COND'] = $_POST['TELEFONO_COND'];
 		$conductor['ESTADO_COND'] = $_POST['ESTADO_COND'];
+		// $conductor['ID_IMG'] = $_POST['ID_IMG'];
 
 		$result = $this->conductores_model->actualizarConductor($conductor);
 		if ($result) {
+			if (isset($_FILES['FILE'])) {
+				$imagen = array();
+				$file = $_FILES['FILE']['tmp_name'];
+				$response = $this->conductores_model->get($_POST['ID_COND']);
+				// var_dump($response['CEDULA_COND']);
+				$public_id = 'driver/' . $response['CEDULA_COND'];
+				try {
+					$foto = $this->cloudinary_files->saveFile($file, $public_id);
+					$imagen['ID_TIPO_IMG'] = $this->conductores_model->tipoImgDriverId();
+					$imagen['NOMBRE_IMG'] =   $response['CEDULA_COND'];
+					$imagen['URL_IMAGEN'] = $foto['secure_url'];
+					$id_img = $this->conductores_model->saveImgDriver($imagen);
+					$this->conductores_model->update_id_img($_POST['ID_COND'], $id_img);
+				} catch (Exception $e) {
+					return $this->response(array(
+						'status' => 400,
+						'message' => 'No se pudo guardar la imagen ' + $e
+					), 200);
+				}
+			}
 			$this->response(array(
 				'status' => 200,
 				'message' => 'Actualización de chofer correcta.'
@@ -162,5 +174,10 @@ class Conductores extends REST_Controller
 			'usuario' => $id_cond,
 			'status' => 200
 		], 200);
+	}
+
+	public function nulldriver_get()
+	{
+		return $this->response(array('nulldriverid' => $this->conductores_model->nullDriverId()));
 	}
 }//Fin

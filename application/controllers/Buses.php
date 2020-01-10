@@ -17,7 +17,7 @@ class Buses extends REST_Controller
     {
         $buses = $this->buses_model->get();
         if (!is_null($buses)) {
-            $this->response(array($buses), 200);
+            $this->response($buses, 200);
         } else {
             $this->response(array('error' => 'No existen buses en la base de datos'), 200);
         }
@@ -94,7 +94,7 @@ class Buses extends REST_Controller
                 'status' => 400
             ), 200);
         } else {
-            if($estado_bus){
+            if($estado_bus==0){
             $response = $this->buses_model->inactivarBus($id_bus);
             return $this->response(array('message' => 'Bus ha cambiado a inactivo.','status' => 200), 200);
             } else {
