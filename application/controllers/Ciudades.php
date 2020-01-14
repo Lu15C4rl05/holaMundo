@@ -14,7 +14,7 @@ class Ciudades extends REST_Controller {
 		$ciudades = $this->ciudades_model->get();
 
 		if (!is_null($ciudades)) {
-			$this->response(array($ciudades), 200);
+			$this->response($ciudades, 200);
 		} else {
 			$this->response(array('error' => 'No existen ciudades en la base de datos'), 200);
 		}

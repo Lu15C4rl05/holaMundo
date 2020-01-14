@@ -85,6 +85,7 @@ class Rutas_model extends CI_Model{
 			case 9:	return 8; break;
 			default: break;
 		}
+		//mandar a buscar directamente en la BD comparando nombres de la ciduad string=string 
 	}
 
 	//Método de inserción de una ruta
